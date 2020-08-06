@@ -1,0 +1,738 @@
+.headline {
+    text-align: center;
+}
+
+.headline h2 {
+    text-transform: uppercase;
+    border-bottom: 5px solid black;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+/* name section */
+.name-content {
+    text-align: center;
+}
+
+.name {
+    width: 70%;
+    padding-right: 80px !important;
+}
+
+.dateOfApp {
+    border: none !important;
+    border-bottom: solid 1px grey !important;
+    padding-top: 20px !important;
+    width: 20%;
+    /* padding-bottom: 7px !important; */
+    /* margin-right: 40px !important; */
+}
+
+/* address section */
+.address-content {
+    text-align: center;
+}
+
+.address {
+    width: 70%;
+    padding-right: 80px !important;
+}
+
+.hlfield {
+    width: 20%;
+}
+
+.address-row {
+    width: 70%;
+    margin-left: 55px !important;
+}
+
+.city {
+    width: 58%;
+    padding-right: 15px !important;
+}
+
+.state {
+    width: 10%;
+    padding-right: 15px !important;
+}
+
+/* telephone-row */
+.telephone-row {
+    width: 80%;
+    margin-left: 55px !important;
+}
+
+.telephone {
+    width: 45%;
+    padding-right: 40px !important;
+}
+
+/* social-row */
+.social-row {
+    margin-top: 10px !important;
+    width: 95%;
+    margin-left: 55px !important;
+}
+
+.social-number {
+    border: none !important;
+    border-bottom: solid 1px grey !important;
+    /* padding-bottom: 7px !important; */
+    padding-top: 20px !important;
+    margin-right: 40px !important;
+    width: 34%;
+}
+
+.birthDate {
+    width: 20%;
+}
+
+.social-number ::-webkit-input-placeholder {
+    padding-bottom: 7px !important;
+}
+
+/* driver-license row*/
+.driver-license-row {
+    margin-left: 55px !important;
+    width: 90%;
+}
+
+.driver-lic {
+    width: 40%;
+    padding-right: 40px !important;
+}
+
+.state-issue {
+    width: 25%;
+    padding-right: 40px !important;
+}
+
+/* addresses */
+.addresses-label {
+    text-align: left;
+    margin-left: 55px;
+    margin-top: 40px;
+}
+
+.prev-addresses1 {
+    margin-left: 55px !important;
+    margin-top: -15px !important;
+}
+
+.address1 {
+    width: 40%;
+    padding-right: 20px !important;
+}
+
+.city1 {
+    padding-right: 20px !important;
+}
+
+.state1 {
+    width: 8%;
+    padding-right: 20px !important;
+}
+
+.prev-addresses2 {
+    margin-left: 55px !important;
+}
+
+.address2 {
+    width: 40%;
+    padding-right: 20px !important;
+}
+
+.city2 {
+    padding-right: 20px !important;
+}
+
+.state2 {
+    width: 8%;
+    padding-right: 20px !important;
+}
+
+.prev-addresses3 {
+    margin-left: 55px !important;
+}
+
+.address3 {
+    width: 40%;
+    padding-right: 20px !important;
+}
+
+.city3 {
+    padding-right: 20px !important;
+}
+
+.state3 {
+    width: 8%;
+    padding-right: 20px !important;
+}
+
+/*table*/
+.table-headline {
+    margin-top: 50px;
+}
+
+.table-headline-checkbox p {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.table-headline h5 {
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.main-table th {
+    text-align: center;
+}
+
+.main-table span {
+    font-weight: normal;
+}
+
+.spanDate1 {
+    padding-right: 120px;
+}
+
+.spanDate2 {
+    padding-right: 10px;
+}
+
+/*table inputs*/
+.tableDateFrom {
+    width: 15%;
+}
+
+.tableDateFromInput {
+    border: none !important;
+    /* border-bottom: solid 1px grey !important; */
+}
+
+.tableDateTo {
+    width: 15%;
+}
+
+.tableDateToInput {
+    border: none !important;
+    /* border-bottom: solid 1px grey !important; */
+}
+
+/* accident table headline */
+.accident-table-headline {
+    margin-top: 50px;
+}
+
+.accident-table-headline p {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.accident-table-headline h5 {
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.accidentDateInput {
+    border: none !important;
+    /* border-bottom: solid 1px grey !important; */
+}
+
+.accidentDatetd {
+    width: 25%;
+}
+
+.accidentNaturetd {
+    width: 25%;
+}
+
+.accidentFataltd {
+    width: 25%;
+}
+
+/* page 2 */
+.tab-headline-violations {
+    margin-top: 50px;
+}
+
+.tab-headline-violations h5 {
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+}
+
+.headline-violations p {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.tab-headline-violations p {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.violatLoc {
+    width: 30%;
+}
+
+.violatDate {
+    width: 20%;
+}
+
+.violatDateInput {
+    border: none !important;
+    /* border-bottom: solid 1px grey !important; */
+}
+
+.violatCharge {
+    width: 20%;
+}
+
+.violatPenal {
+    width: 20%;
+}
+
+.violat-table th {
+    text-align: center;
+}
+
+.licFirstQ p {
+    margin: 11px 50px 0 15px;
+}
+
+.licSecQ p {
+    margin: 11px 50px 0 15px;
+}
+
+.epmloyment-headline {
+    margin-top: 50px;
+}
+
+.epmloyment-headline h5 {
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+}
+
+.epmloyment-headline p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.employment-table th {
+    text-align: center;
+}
+
+.th-empl {
+    width: 53%;
+}
+
+.th-date {
+    width: 47%;
+}
+
+.emplname {
+    border-bottom: none !important;
+}
+
+.emplDateFromTd {
+    padding: 2px 0 0 5px !important;
+    width: 20%;
+}
+
+.emplDateFromM {
+    width: 50%;
+}
+
+.emplDateFromY {
+    width: 50%;
+}
+
+.datefromtwoinputs {
+    display: row;
+}
+
+.emplDateFromP {
+    margin-bottom: 0;
+}
+
+.emplDateToTd {
+    padding: 2px 0 0 5px !important;
+    width: 20%;
+}
+
+.emplDateToM {
+    width: 50%;
+}
+
+.emplDateToY {
+    width: 50%;
+}
+
+.emplDateToP {
+    margin-bottom: 0;
+}
+
+.page2-sign {
+    margin-top: 50px;
+}
+
+.page2-sign h5 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.page2-sign p {
+    font-size: 12px;
+}
+
+.page2-sign-p {
+    margin-left: 50px;
+}
+
+.mainSignature {
+    width: 60%;
+}
+
+.signature-date {
+    margin-top: 0px;
+}
+
+.signDateInput {
+    border: none !important;
+    border-bottom: solid 1px grey !important;
+    width: 15%;
+    margin: 21px 0 0 135px;
+}
+
+.alcDrug-headline {
+    text-align: center;
+    margin-top: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.alcoDrug-ques1 p {
+    margin: 11px 50px 0 15px;
+}
+
+.alcoDrug-semiText {
+    font-weight: bold;
+    text-align: center;
+}
+
+.alcoDrug-ques2 p {
+    margin: 11px 50px 0 15px;
+}
+
+.alcoDrug-ques3 p {
+    margin: 11px 205px 0 15px;
+}
+
+.alcoDrug-ques4 p {
+    margin: 11px 86px 0 15px;
+}
+
+.sertOfViolHeadline {
+    text-align: center;
+    margin-top: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sertOfViol p {
+    margin: 11px 20px 0 15px;
+}
+
+.sertOfViolTableTh {
+    text-align: center;
+    width: 35%;
+    vertical-align: middle !important;
+}
+
+.sertOfViolTableTh1 {
+    text-align: center;
+    width: 15%;
+    vertical-align: middle !important;
+}
+
+.sertOfViolTableTh4 {
+    text-align: center;
+    width: 15%;
+}
+
+.sertOfViolTableDate {
+    border: none !important;
+    /* border-bottom: solid 1px grey !important; */
+}
+
+/* page 14 */
+.cargoTrainingHeadline h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.cargo-check-boxes {
+    margin-left: 40px;
+}
+
+/* page 19 */
+.receipt-headline h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.receipt-checkboxes {
+    margin-left: 40px;
+}
+
+.inner-checkboxes {
+    margin-left: 40px;
+}
+
+/* page 23 */
+.cdl-regul-headline h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.cdl-regul-headline p {
+    margin-left: 20px;
+}
+
+.cdl-regul-checkboxs {
+    margin-left: 40px;
+}
+
+/* emergency form page */
+.emergency-form {
+    margin-bottom: 70px;
+}
+
+.emergency-form-headline h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.emergency-form-main {
+    margin-left: 40px;
+}
+
+.em-name-row {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.em-p-title {
+    margin-top: 30px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.em-main-name {
+    width: 40%;
+}
+
+.em-main-depart {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.em-main-addr {
+    width: 75%;
+}
+
+.em-main-csz {
+    width: 75%;
+}
+
+.em-tel-row {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.em-main-homet {
+    width: 40%;
+}
+
+.em-main-cell {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+/* emer1 */
+.emer-name1 {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-main-name1 {
+    width: 40%;
+}
+
+.emer-main-rel1 {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.emer-main-addr1 {
+    width: 75%;
+}
+
+.emer-main-csz1 {
+    width: 75%;
+}
+
+.emer-tel1 {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-home-tel1 {
+    width: 40%;
+}
+
+.emer-cell1 {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.emer-work1 {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-work-tel1 {
+    width: 40%;
+}
+
+.emer-empl1 {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+/* emer2 */
+.em-emer-cont2 {
+    margin-top: 40px;
+}
+
+.emer-name2 {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-main-name2 {
+    width: 40%;
+}
+
+.emer-main-rel2 {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.emer-main-addr2 {
+    width: 75%;
+}
+
+.emer-main-csz2 {
+    width: 75%;
+}
+
+.emer-tel2 {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-home-tel2 {
+    width: 40%;
+}
+
+.emer-cell2 {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.emer-work2 {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-work-tel2 {
+    width: 40%;
+}
+
+.emer-empl2 {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.emer-medical-doc {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-med-doc-name {
+    width: 40%;
+}
+
+.emer-med-doc-phone {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.emer-medical-den {
+    width: 90%;
+    margin-left: 2px !important;
+}
+
+.emer-med-den-name {
+    width: 40%;
+}
+
+.emer-med-den-phone {
+    width: 40%;
+    margin-left: 30px !important;
+}
+
+.empl-emer-check {
+    margin-top: 20px;
+    width: 80%;
+}
+
+.MainBtnDiv {
+    text-align: center;
+}
+
+.mainBtn {
+    width: 20%;
+    position: relative !important;
+    margin-bottom: 35px !important;
+}
+
+.mainCircProg {
+    left: 40%;
+    width: 20%;
+    margin-bottom: 35px !important;
+    text-align: center;
+}
