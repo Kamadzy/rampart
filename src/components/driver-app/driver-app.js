@@ -1036,7 +1036,7 @@ class DriverApp extends Component {
               id='state'
               className='state'
               helperText='STATE'
-              inputProps={{
+              inputprops={{
                 maxLength: 2,
               }}
               name='state'
@@ -1047,7 +1047,7 @@ class DriverApp extends Component {
               id='zip-code'
               className='zip-code'
               helperText='ZIP CODE'
-              inputProps={{
+              inputprops={{
                 maxLength: 5,
               }}
               name='zipCode'
@@ -1096,7 +1096,7 @@ class DriverApp extends Component {
                     ]
                   : []
               }
-              inputProps={{
+              inputprops={{
                 maxLength: 9,
               }}
               name='socialNumber'
@@ -1198,7 +1198,7 @@ class DriverApp extends Component {
               id='state1'
               className='state1'
               helperText='STATE'
-              inputProps={{
+              inputprops={{
                 maxLength: 2,
               }}
               label='&#8203;'
@@ -1210,7 +1210,7 @@ class DriverApp extends Component {
               id='zip-code1'
               className='zip-code1'
               helperText='ZIP CODE'
-              inputProps={{
+              inputprops={{
                 maxLength: 5,
               }}
               label='&#8203;'
@@ -1242,7 +1242,7 @@ class DriverApp extends Component {
               id='state2'
               className='state2'
               helperText='STATE'
-              inputProps={{
+              inputprops={{
                 maxLength: 2,
               }}
               label='&#8203;'
@@ -1254,7 +1254,7 @@ class DriverApp extends Component {
               id='zip-code2'
               className='zip-code2'
               helperText='ZIP CODE'
-              inputProps={{
+              inputprops={{
                 maxLength: 5,
               }}
               label='&#8203;'
@@ -1286,7 +1286,7 @@ class DriverApp extends Component {
               id='state3'
               className='state3'
               helperText='STATE'
-              inputProps={{
+              inputprops={{
                 maxLength: 2,
               }}
               label='&#8203;'
@@ -1298,7 +1298,7 @@ class DriverApp extends Component {
               id='zip-code3'
               className='zip-code3'
               helperText='ZIP CODE'
-              inputProps={{
+              inputprops={{
                 maxLength: 5,
               }}
               label='&#8203;'
@@ -2397,7 +2397,7 @@ class DriverApp extends Component {
                         className='emplDateFromM'
                         name='emplDateFromM1'
                         placeholder='Month'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 2,
                         }}
                         value={this.state.emplDateFromM1}
@@ -2409,7 +2409,7 @@ class DriverApp extends Component {
                         className='emplDateFromY'
                         name='emplDateFromY1'
                         placeholder='Year'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 4,
                         }}
                         value={this.state.emplDateFromY1}
@@ -2425,7 +2425,7 @@ class DriverApp extends Component {
                         className='emplDateToM'
                         name='emplDateToM1'
                         placeholder='Month'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 2,
                         }}
                         value={this.state.emplDateToM1}
@@ -2437,7 +2437,7 @@ class DriverApp extends Component {
                         className='emplDateToY'
                         name='emplDateToY1'
                         placeholder='Year'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 4,
                         }}
                         value={this.state.emplDateToY1}
@@ -2579,7 +2579,7 @@ class DriverApp extends Component {
                         className='emplDateFromM'
                         name='emplDateFromM2'
                         placeholder='Month'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 2,
                         }}
                         value={this.state.emplDateFromM2}
@@ -2591,7 +2591,7 @@ class DriverApp extends Component {
                         className='emplDateFromY'
                         name='emplDateFromY2'
                         placeholder='Year'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 4,
                         }}
                         value={this.state.emplDateFromY2}
@@ -2607,7 +2607,7 @@ class DriverApp extends Component {
                         className='emplDateToM'
                         name='emplDateToM2'
                         placeholder='Month'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 2,
                         }}
                         value={this.state.emplDateToM2}
@@ -2619,7 +2619,7 @@ class DriverApp extends Component {
                         className='emplDateToY'
                         name='emplDateToY2'
                         placeholder='Year'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 4,
                         }}
                         value={this.state.emplDateToY2}
@@ -2761,7 +2761,7 @@ class DriverApp extends Component {
                         className='emplDateFromM'
                         name='emplDateFromM3'
                         placeholder='Month'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 2,
                         }}
                         value={this.state.emplDateFromM3}
@@ -2773,7 +2773,7 @@ class DriverApp extends Component {
                         className='emplDateFromY'
                         name='emplDateFromY3'
                         placeholder='Year'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 4,
                         }}
                         value={this.state.emplDateFromY3}
@@ -2789,7 +2789,7 @@ class DriverApp extends Component {
                         className='emplDateToM'
                         name='emplDateToM3'
                         placeholder='Month'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 2,
                         }}
                         value={this.state.emplDateToM3}
@@ -2801,7 +2801,7 @@ class DriverApp extends Component {
                         className='emplDateToY'
                         name='emplDateToY3'
                         placeholder='Year'
-                        inputProps={{
+                        inputprops={{
                           maxLength: 4,
                         }}
                         value={this.state.emplDateToY3}
