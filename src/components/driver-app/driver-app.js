@@ -279,8 +279,6 @@ class DriverApp extends Component {
     //page0
 
     doc.addImage(createImage(images[0]), 'JPG', 0, 0, 210, 297);
-    // doc.addImage(this.state.page0Image, "JPG", 0, 0, 210, 297);
-
     //text(x, y, this.state)
     //page1
     doc.addPage();
@@ -543,7 +541,7 @@ class DriverApp extends Component {
 
     //page 5-2
     doc.addPage();
-    doc.addImage(createImage(images[5]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[6]), 'JPG', 0, 0, 210, 297);
     doc.text(46, 29.5, this.state.name);
     doc.text(139, 29.5, this.state.driverLic);
     doc.text(36, 35.5, this.state.address);
@@ -566,7 +564,7 @@ class DriverApp extends Component {
 
     //page 5-3
     doc.addPage();
-    doc.addImage(createImage(images[5]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[7]), 'JPG', 0, 0, 210, 297);
     doc.text(46, 29.5, this.state.name);
     doc.text(139, 29.5, this.state.driverLic);
     doc.text(36, 35.5, this.state.address);
@@ -589,7 +587,7 @@ class DriverApp extends Component {
 
     //page6 DMV
     doc.addPage();
-    doc.addImage(createImage(images[6]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[8]), 'JPG', 0, 0, 210, 297);
     doc.text(24, 85, this.state.name);
     doc.text(142, 85, this.state.driverLic);
     doc.text(55, 92.5, this.state.mainCompanyName);
@@ -610,7 +608,7 @@ class DriverApp extends Component {
 
     //page7 annual review
     doc.addPage();
-    doc.addImage(createImage(images[7]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[9]), 'JPG', 0, 0, 210, 297);
     doc.text(49, 41.4, this.state.name);
     doc.text(139, 41.4, this.state.driverLic);
     doc.text(40, 47.5, this.state.address);
@@ -623,7 +621,7 @@ class DriverApp extends Component {
 
     //page8 motor venicle
     doc.addPage();
-    doc.addImage(createImage(images[8]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[10]), 'JPG', 0, 0, 210, 297);
     doc.text(49, 40.5, this.state.name);
     doc.text(141, 41, this.state.driverLic);
     doc.text(40, 46, this.state.address);
@@ -665,7 +663,7 @@ class DriverApp extends Component {
 
     //page9 education material and alco policy
     doc.addPage();
-    doc.addImage(createImage(images[9]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[11]), 'JPG', 0, 0, 210, 297);
     doc.setFontSize(18);
     doc.text(77, 178, this.state.name);
     doc.setFont('Meddon', 'cursive');
@@ -676,7 +674,7 @@ class DriverApp extends Component {
 
     //-page10
     doc.addPage();
-    doc.addImage(createImage(images[10]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[12]), 'JPG', 0, 0, 210, 297);
     doc.text(68, 55.5, this.state.name);
     doc.text(66.5, 61.5, this.state.driverLic);
     doc.text(58, 67, this.state.address);
@@ -699,7 +697,7 @@ class DriverApp extends Component {
 
     //page11 Acknowledge receipt of
     doc.addPage();
-    doc.addImage(createImage(images[11]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[13]), 'JPG', 0, 0, 210, 297);
     doc.text(45, 124.5, this.state.name);
     doc.text(152, 124.5, this.state.signDate);
     doc.setFont('Meddon', 'cursive');
@@ -711,15 +709,15 @@ class DriverApp extends Component {
 
     //page12 gergun regular form
     doc.addPage();
-    doc.addImage(createImage(images[12]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[14]), 'JPG', 0, 0, 210, 297);
 
     //page13-w9
     doc.addPage();
-    doc.addImage(createImage(images[13]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[15]), 'JPG', 0, 0, 210, 297);
 
     //page14 inspection report
     doc.addPage();
-    doc.addImage(createImage(images[14]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[16]), 'JPG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
     doc.text(56, 240.5, this.state.mainSignature);
@@ -730,7 +728,7 @@ class DriverApp extends Component {
 
     //page15 certificate of driver's road test
     doc.addPage();
-    doc.addImage(createImage(images[15]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[17]), 'JPG', 0, 0, 210, 297);
     doc.text(68, 87, this.state.name);
     doc.text(82, 95.5, this.state.socialNumber);
     doc.text(115, 104, this.state.driverLic);
@@ -739,7 +737,7 @@ class DriverApp extends Component {
 
     //page16 cargo training
     doc.addPage();
-    doc.addImage(createImage(images[16]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[18]), 'JPG', 0, 0, 210, 297);
     doc.text(25, 99.5, this.state.inspCargoCheck ? 'X' : '');
     doc.text(25, 109.8, this.state.genSecCargoCheck ? 'X' : '');
     doc.text(25, 119, this.state.perfCritCheck ? 'X' : '');
@@ -760,7 +758,7 @@ class DriverApp extends Component {
 
     //page17 disclosure of info
     doc.addPage();
-    doc.addImage(createImage(images[17]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[19]), 'JPG', 0, 0, 210, 297);
     doc.text(135, 227.5, this.state.signDate);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
@@ -771,17 +769,17 @@ class DriverApp extends Component {
 
     //page18
     doc.addPage();
-    doc.addImage(createImage(images[18]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[20]), 'JPG', 0, 0, 210, 297);
     doc.text(15, 286.5, this.state.mainCompanyName);
 
     //page19
     doc.addPage();
-    doc.addImage(createImage(images[19]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[21]), 'JPG', 0, 0, 210, 297);
     doc.text(15, 286.5, this.state.mainCompanyName);
 
     //page20 disqualifying offenses
     doc.addPage();
-    doc.addImage(createImage(images[20]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[22]), 'JPG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
     doc.text(40, 187, this.state.mainSignature);
@@ -792,7 +790,7 @@ class DriverApp extends Component {
 
     //page21 receipt of driver rights
     doc.addPage();
-    doc.addImage(createImage(images[21]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[23]), 'JPG', 0, 0, 210, 297);
     doc.text(25.7, 92.5, this.state.receiptAcknowCheck ? 'X' : '');
     doc.text(24.3, 128.7, this.state.reviewInfoCheck ? 'X' : '');
     doc.text(24.3, 142.7, this.state.requestCorrCheck ? 'X' : '');
@@ -808,7 +806,7 @@ class DriverApp extends Component {
 
     //page22 Unauthorized passengers
     doc.addPage();
-    doc.addImage(createImage(images[22]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[24]), 'JPG', 0, 0, 210, 297);
     doc.text(128, 238.5, this.state.signDate);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
@@ -819,7 +817,7 @@ class DriverApp extends Component {
 
     //page23
     doc.addPage();
-    doc.addImage(createImage(images[23]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[25]), 'JPG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
     doc.text(25, 121.5, this.state.mainSignature);
@@ -831,7 +829,7 @@ class DriverApp extends Component {
 
     //page24
     doc.addPage();
-    doc.addImage(createImage(images[24]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[26]), 'JPG', 0, 0, 210, 297);
     doc.text(46, 195, this.state.name);
     doc.text(120, 196.5, this.state.socialNumber);
     doc.text(38, 204, this.state.address);
@@ -850,7 +848,7 @@ class DriverApp extends Component {
 
     //page25
     doc.addPage();
-    doc.addImage(createImage(images[25]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[27]), 'JPG', 0, 0, 210, 297);
     doc.text(24.5, 80.3, this.state.havingAlco ? 'X' : '');
     doc.text(24.5, 90.8, this.state.beingUnderAlco ? 'X' : '');
     doc.text(24.5, 100, this.state.beingUnderCont ? 'X' : '');
@@ -874,12 +872,12 @@ class DriverApp extends Component {
 
     //page26
     doc.addPage();
-    doc.addImage(createImage(images[26]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[28]), 'JPG', 0, 0, 210, 297);
     doc.text(15, 286.5, this.state.mainCompanyName);
 
     //page27
     doc.addPage();
-    doc.addImage(createImage(images[27]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[29]), 'JPG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(14);
     doc.text(44, 42, this.state.mainSignature);
@@ -889,7 +887,7 @@ class DriverApp extends Component {
 
     //page28
     doc.addPage();
-    doc.addImage(createImage(images[28]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[30]), 'JPG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
     doc.text(25, 247, this.state.mainSignature);
@@ -900,7 +898,7 @@ class DriverApp extends Component {
 
     //page29
     doc.addPage();
-    doc.addImage(createImage(images[29]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[31]), 'JPG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
     doc.text(45, 258.5, this.state.mainSignature);
@@ -910,7 +908,7 @@ class DriverApp extends Component {
 
     //page30
     doc.addPage();
-    doc.addImage(createImage(images[30]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[32]), 'JPG', 0, 0, 210, 297);
     doc.text(37, 50.5, this.state.emMainName);
     doc.text(42, 57.5, this.state.emHomeAddr);
     doc.text(26, 65.5, this.state.emMainCsz);
@@ -933,21 +931,21 @@ class DriverApp extends Component {
 
     //page 31
     doc.addPage();
-    doc.addImage(createImage(images[31]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[33]), 'JPG', 0, 0, 210, 297);
 
     doc.save('rampart-transportation.pdf');
     setTimeout(() => {
       this.setState({ loading: false });
     }, 4000);
   };
-  static sendPdf(blob) {
-    const formData = new FormData();
-    formData.append('file', blob, 'Driver_application.pdf');
+  // static sendPdf(blob) {
+  //   const formData = new FormData();
+  //   formData.append('file', blob, 'Driver_application.pdf');
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/sendmail.php', true);
-    xhr.send(formData);
-  }
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open('POST', '/sendmail.php', true);
+  //   xhr.send(formData);
+  // }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   onChecked = (e, state) => this.setState({ [e.target.name]: state });
