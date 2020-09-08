@@ -143,10 +143,18 @@ export default class LandingPage extends Component {
               <div className='about-content'>
                 <h3>About Us</h3>
                 <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Obcaecati quod accusantium quia itaque doloremque nostrum
-                  quasi cumque ratione sit laborum. Maiores nobis deserunt
-                  doloribus. Reprehenderit modi iure nobis maxime. A.
+                  Rampart Transportation INC is a Boise, Idaho asset based
+                  transportation and logistics company operating with our
+                  customer’s needs as our top priority! We specialize in 53 foot
+                  dry van local, regional, dedicated, and long haul service!
+                  With over 20 years of industry experience, we know what it
+                  takes to get the job done in a reliable, timely, and cost
+                  effective manner. We pride ourselves on providing our
+                  customers with industry leading technology as well as
+                  knowledgeable logistics specialists who always ensure an on
+                  time pickup and delivery. Our highly skilled office staff is
+                  always just one phone call away from helping you with your
+                  logistics needs! Experience the Rampart difference today!
                 </p>
               </div>
             </div>
@@ -161,10 +169,16 @@ export default class LandingPage extends Component {
               <div className='driver-app-content col-xl-6 col-sm-12'>
                 <h3>Driver Application</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veniam error inventore, eveniet placeat voluptas libero eos
-                  ipsam repudiandae asperiores, perspiciatis aliquam dolor,
-                  autem commodi id iste quasi adipisci. Assumenda, iste.
+                  Rampart Transportation INC has the most skilled, respected and
+                  dedicated team of professional drivers on the road. Our
+                  drivers are our most valued assets and the reason for our
+                  growth and success. We have multiple drop yards throughout the
+                  United States, providing lots of flexibility for our drivers.
+                  We offer many bonuses and incentives for our drivers such as :
+                  Sign on Bonus Monthly Safety Bonus Monthly Productivity Bonus
+                  Allow Pets in the trucks 2000 Watt Inverters in all our trucks
+                  Paid Detention & Layover Easy to use Log Books Friendly 24/7
+                  Dispatchers Annual Profit Sharing
                 </p>
                 <Button
                   variant='contained'
@@ -182,10 +196,15 @@ export default class LandingPage extends Component {
               <div className='ownerOp-app-content col-xl-6 col-sm-12'>
                 <h3>Owner Operator Application</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veniam error inventore, eveniet placeat voluptas libero eos
-                  ipsam repudiandae asperiores, perspiciatis aliquam dolor,
-                  autem commodi id iste quasi adipisci. Assumenda, iste.
+                  We treat our owner operators like family here at Rampart. We
+                  work around your needs and preferred schedule, route, and
+                  weight/product restrictions. We provide our Owner Op’s with
+                  all the resources they need to keep their trucks on the road!
+                  From registration services, Fuel Cards, IFTA filing, Log
+                  Books, providing trailers, helping with breakdowns with our
+                  nationwide team of mechanics that can help you no matter where
+                  you are. We charge a small service fee for our dedicated
+                  dispatch team that is always available.
                 </p>
                 <Button
                   variant='contained'
