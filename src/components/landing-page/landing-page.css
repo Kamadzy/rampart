@@ -104,10 +104,12 @@ img,
 }
 
 /* about us */
-#about-section {
-  margin-top: 50px;
+.main-slogan-content {
+  text-align: center;
 }
-
+.main-slogan {
+  width: 60%;
+}
 .about-content {
   text-align: center;
 }
@@ -165,4 +167,11 @@ footer {
 .p-footer {
   color: lightgrey;
   font-size: 10px;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .about-content {
+    margin-top: 50px;
+  }
 }

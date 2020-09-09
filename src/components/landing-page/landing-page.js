@@ -11,6 +11,7 @@ import {
 
 import './landing-page.css';
 import main_logo from './img/Rampart Logo-01-crop.png';
+import main_slogan from './img/Rampart Logo-04.png';
 import truck_img from './img/driver-app-img.png';
 import owner_op from './img/owner-operator.jpg';
 
@@ -139,6 +140,13 @@ export default class LandingPage extends Component {
         </section>{' '}
         <section id='about-section'>
           <div className='container'>
+            <div className='main-slogan-content d-none d-sm-block col-xl-12 '>
+              <img
+                className='main-slogan'
+                src={main_slogan}
+                alt='main-slogan'
+              />
+            </div>
             <div className='row'>
               <div className='about-content'>
                 <h3>About Us</h3>
