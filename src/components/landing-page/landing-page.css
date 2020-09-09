@@ -47,7 +47,7 @@ img,
 
 /* home section */
 #home-section {
-  background: url(./img/main_wallpaper_test.png) no-repeat center center/cover;
+  background: url(./img/main_wallpaper.png) no-repeat center center/cover;
   min-height: 900px;
   background-attachment: fixed;
 }
