@@ -55,9 +55,9 @@ export default class LandingPage extends Component {
                     </a>
                   </li>
                   <li className='nav-item'>
-                    <Link to='#main-section' className='nav-link'>
+                    <a href='#main-section' className='nav-link'>
                       Owner Operator
-                    </Link>
+                    </a>
                   </li>
                   <li className='nav-item'>
                     <a href='#contact-section' className='nav-link'>

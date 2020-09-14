@@ -931,6 +931,25 @@ class DriverApp extends Component {
     //page 31
     doc.addPage();
     doc.addImage(createImage(images[31]), 'JPEG', 0, 0, 210, 297);
+    //page 32
+    doc.addPage();
+    doc.addImage(createImage(images[32]), 'JPEG', 0, 0, 210, 297);
+    doc.setFontSize(10);
+    doc.text(97, 49, this.state.mainCompanyName);
+    doc.setFontSize(9);
+    doc.text(28.5, 225.5, this.state.mainCompanyName);
+    //page 33
+    doc.addPage();
+    doc.addImage(createImage(images[33]), 'JPEG', 0, 0, 210, 297);
+    doc.setFontSize(12);
+    doc.text(23, 35, this.state.dateOfApp);
+    doc.addFileToVFS('Meddon.ttf', SignatureFont);
+    doc.addFont('Meddon.ttf', 'Meddon', 'cursive');
+    doc.setFont('Meddon', 'cursive');
+    doc.text(85, 35, this.state.mainSignature);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.text(85, 61, this.state.name);
 
     doc.save('rampart-transportation.pdf');
     setTimeout(() => {
