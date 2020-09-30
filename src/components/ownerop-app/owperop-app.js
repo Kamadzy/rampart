@@ -55,7 +55,7 @@ export default class OwperopApp extends Component {
     doc.setFontSize(12);
     doc.setTextColor('black');
 
-    doc.addImage(createImage(images[0]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[0]), 'JPEG', 0, 0, 210, 297);
     doc.text(55, 50.3, dateOfAgr);
     doc.text(95, 50.3, mainCompanyName);
     doc.text(33, 65.5, mainCompanyAddress);
@@ -71,11 +71,11 @@ export default class OwperopApp extends Component {
     doc.text(89.5, 156, mainCompanyMc);
     doc.text(16, 286, mainCompanyName);
     doc.addPage();
-    doc.addImage(createImage(images[1]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[1]), 'JPEG', 0, 0, 210, 297);
     doc.text(80, 56, lessorGross);
     doc.text(16, 286, mainCompanyName);
     doc.addPage();
-    doc.addImage(createImage(images[2]), 'JPG', 0, 0, 210, 297);
+    doc.addImage(createImage(images[2]), 'JPEG', 0, 0, 210, 297);
     doc.text(117, 155, dateOfAgr);
     doc.text(30, 217.5, mainCompanyName);
     doc.text(26, 238.5, lessorName);
@@ -87,8 +87,24 @@ export default class OwperopApp extends Component {
     doc.text(105, 238.5, lessorMainSignature);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-
     doc.text(16, 286, mainCompanyName);
+    doc.addPage();
+    doc.addImage(createImage(images[3]), 'JPEG', 0, 0, 210, 297);
+    doc.setFontSize(10);
+    doc.text(97, 49, mainCompanyName);
+    doc.setFontSize(9);
+    doc.text(28.5, 225.5, mainCompanyName);
+    doc.addPage();
+    doc.addImage(createImage(images[4]), 'JPEG', 0, 0, 210, 297);
+    doc.setFontSize(12);
+    doc.text(23, 35, dateOfAgr);
+    doc.addFileToVFS('Meddon.ttf', SignatureFont);
+    doc.addFont('Meddon.ttf', 'Meddon', 'cursive');
+    doc.setFont('Meddon', 'cursive');
+    doc.text(85, 35, lessorMainSignature);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.text(85, 61, lessorName);
 
     doc.save('rampart-ownerop.pdf');
     setTimeout(() => {
