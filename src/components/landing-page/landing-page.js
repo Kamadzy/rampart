@@ -40,7 +40,7 @@ export default class LandingPage extends Component {
                 <ul className='navbar-nav ml-auto'>
                   <li className='nav-item'>
                     <Link to='/' className='nav-link'>
-                      Home_TEST
+                      Home
                     </Link>
                   </li>
                   <li className='nav-item'>
