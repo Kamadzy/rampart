@@ -1,15 +1,15 @@
-FROM node:14.7.0-alpine AS build
+FROM node:14.11.0-alpine AS build
 
 LABEL maintainer="Anton Samofal"
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN yarn install
 
 ENV PATH="./node_modules/.bin:$PATH"
 
 COPY . ./
-RUN npm run build
+RUN yarn run build
 
 FROM nginx:1.18.0-alpine
 COPY --from=build /app/build /usr/share/nginx/html
