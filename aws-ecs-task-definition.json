@@ -29,7 +29,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "261836803134.dkr.ecr.us-east-1.amazonaws.com/rampart-repo:bbddcdb7a77e42397226193e2d92e5cb283345ad",
+      "image": "261836803134.dkr.ecr.us-east-1.amazonaws.com/rampart-repo:c71f24e70ecd559336af1a35c92de84ec7660744",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
