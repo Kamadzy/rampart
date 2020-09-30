@@ -21,7 +21,6 @@ export default class LandingPage extends Component {
     this.state = {};
   }
   render() {
-    const {} = this.state;
     return (
       <div>
         <header className='large'>
