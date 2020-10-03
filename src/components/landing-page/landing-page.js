@@ -44,24 +44,16 @@ export default class LandingPage extends Component {
                     </Link>
                   </li>
                   <li className='nav-item'>
-                    <a href='#about-section' className='nav-link'>
-                      About Us
-                    </a>
+                    <a href='#about-section' className='nav-link'>About Us</a>
                   </li>
                   <li className='nav-item'>
-                    <a href='#main-section' className='nav-link'>
-                      Driver App
-                    </a>
+                    <a href='#main-section' className='nav-link'>Driver App</a>
                   </li>
                   <li className='nav-item'>
-                    <a href='#main-section' className='nav-link'>
-                      Owner Operator
-                    </a>
+                    <a href='#main-section' className='nav-link'>Owner Operator</a>
                   </li>
                   <li className='nav-item'>
-                    <a href='#contact-section' className='nav-link'>
-                      Contact
-                    </a>
+                    <a href='#contact-section' className='nav-link'>Contact</a>
                   </li>
                 </ul>
               </div>
@@ -230,7 +222,7 @@ export default class LandingPage extends Component {
             </div>
           </div>
         </section>
-        <section id='contact'>
+        <section id='contact-section'>
           <div className='container'>
             <div className='row'>
               <div className='contact-content col-xl-12 col-sm-12'>
