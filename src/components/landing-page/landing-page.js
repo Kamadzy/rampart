@@ -234,14 +234,19 @@ export default class LandingPage extends Component {
                   6110 N Hood Ave <br /> Meridian, ID 83646
                 </p>
                 <p className='p-header'>
-                  {' '}
                   <FontAwesomeIcon icon={faPhoneAlt} /> Phone
                 </p>
-                <p>916 531-1098</p>
+                <p>
+                    <a href='tel:916 531-1098'>916 531-1098</a>
+                </p>
                 <p className='p-header'>
                   <FontAwesomeIcon icon={faEnvelope} /> Email
                 </p>
-                <p>ramparttranz@gmail.com</p>
+                <p>
+                    <a href='mailto:ramparttranz@gmail.com' target='_blank' rel="noopener noreferrer">
+                        ramparttranz@gmail.com
+                    </a>
+                </p>
               </div>
             </div>
           </div>
