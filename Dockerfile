@@ -3,7 +3,9 @@ FROM node:14.11.0-alpine AS build
 LABEL maintainer="Anton Samofal"
 
 WORKDIR /app
-COPY package.json package-lock.json ./
+
+# copy package.json separately to use Docker cache
+COPY package.json yarn.lock ./
 RUN yarn install
 
 ENV PATH="./node_modules/.bin:$PATH"

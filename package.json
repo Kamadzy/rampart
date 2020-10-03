@@ -28,7 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "docker-build": "docker build -t rampart/app ."
+    "docker-build": "docker build -t rampart/app .",
+    "docker-start": "docker rm rampart-app && docker run --name rampart-app -p 81:80 rampart/app"
   },
   "eslintConfig": {
     "extends": "react-app"

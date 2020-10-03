@@ -4,6 +4,10 @@ docker-compose-build.yml
 Dockerfile
 .dockerignore
 .gitignore
+.github
+.idea
+.git
+aws-ecs-task-definition.json
 README.md
 
 # Artifacts that will be built during image creation.
