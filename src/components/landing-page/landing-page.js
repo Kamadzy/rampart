@@ -162,8 +162,8 @@ export default class LandingPage extends Component {
         <section id='main-section'>
           <div className='container'>
             <div className='row driver-app'>
-              <div className='driver-app-img d-none d-sm-block col-xl-6 '>
-                <img src={truck_img} alt='red_truck' />
+              <div className='driver-app-img d-none d-sm-block col-xl-6'>
+                <img className='section-img' src={truck_img} alt='red_truck' />
               </div>
               <div className='driver-app-content col-xl-6 col-sm-12'>
                 <h3>Driver Application</h3>
@@ -216,8 +216,8 @@ export default class LandingPage extends Component {
                   Fill Owner Op Application
                 </Button>
               </div>
-              <div className='ownerOp-app-img d-none d-sm-block col-xl-6 '>
-                <img src={owner_op} alt='owner_operator' />
+              <div className='ownerOp-app-img d-none d-sm-block col-xl-6'>
+                <img className='section-img' src={owner_op} alt='owner_operator' />
               </div>
             </div>
           </div>

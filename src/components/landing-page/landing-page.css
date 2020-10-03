@@ -45,11 +45,14 @@ img,
   align-items: center;
 }
 
+.section-img {
+	border-radius: 10px;
+}
+
 /* home section */
 #home-section {
-  background: url(./img/main_wallpaper.png) no-repeat center center/cover;
-  min-height: 900px;
-  background-attachment: fixed;
+	min-height: 900px;
+	background: url(./img/main_wallpaper.png) no-repeat fixed center center;
 }
 
 .moving-form {
