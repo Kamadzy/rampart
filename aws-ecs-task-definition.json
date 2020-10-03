@@ -25,12 +25,12 @@
       "workingDirectory": null,
       "secrets": null,
       "dockerSecurityOptions": null,
-      "memory": 256,
-      "memoryReservation": null,
+      "memory": null,
+      "memoryReservation": 512,
       "volumesFrom": [],
-      "stopTimeout": null,
-      "image": "261836803134.dkr.ecr.us-east-1.amazonaws.com/rampart-repo:791850b08611d04fb408494552e3c513477a6bf6",
-      "startTimeout": null,
+      "stopTimeout": 60,
+      "image": "261836803134.dkr.ecr.us-east-1.amazonaws.com/rampart-repo:8d960c816a6e146321e0167982c0efadb7865be0",
+      "startTimeout": 120,
       "firelensConfiguration": null,
       "dependsOn": null,
       "disableNetworking": null,
@@ -55,7 +55,7 @@
   "compatibilities": [
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:261836803134:task-definition/rampart-app-task:26",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:261836803134:task-definition/rampart-app-task:28",
   "family": "rampart-app-task",
   "requiresAttributes": [
     {
@@ -68,7 +68,19 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.container-ordering"
     },
     {
       "targetId": null,
@@ -83,7 +95,7 @@
   ],
   "networkMode": "bridge",
   "cpu": null,
-  "revision": 26,
+  "revision": 28,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
