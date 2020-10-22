@@ -62,7 +62,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: rampart-repo
         IMAGE_TAG: ${{ github.sha }},
-        APP_NAME: ${{ secrets.LARAVEL_APP_NAME }}
+        APP_KEY: ${{ secrets.LARAVEL_APP_KEY }}
         APP_URL: ${{ secrets.LARAVEL_APP_URL }}
       run: |
         # Build a docker container and
