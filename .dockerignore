@@ -1,6 +1,5 @@
 # Items that don't need to be in a Docker image.
 # Anything not used by the build system should go here.
-docker-compose-build.yml
 Dockerfile
 .dockerignore
 .gitignore
@@ -12,5 +11,5 @@ README.md
 
 # Artifacts that will be built during image creation.
 # This should contain all files created during `npm run build`.
-build
-node_modules
+frontend/build
+frontend/node_modules

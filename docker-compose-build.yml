@@ -1,6 +1,0 @@
-version: '3.8'
-
-services:
-  rampart-app:
-    build: .
-    image: rampart/app:1.0
