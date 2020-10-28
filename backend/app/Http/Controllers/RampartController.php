@@ -6,8 +6,8 @@ use Illuminate\Http\Client\Request;
 
 class RampartController extends Controller
 {
-    public function movingQuote(Request $request = null): bool
+    public function movingQuote(Request $request)
     {
-        return true;
+        return response()->json($request->body());
     }
 }

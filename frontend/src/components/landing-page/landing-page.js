@@ -18,8 +18,30 @@ import owner_op from './img/owner-operator.jpg';
 export default class LandingPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      fromLocation: '',
+      toLocation: '',
+      customerName: '',
+      customerEmail: '',
+      customerPhone: ''
+    };
   }
+
+  onChange = e => this.setState({[e.target.name]: e.target.value});
+
+  onSubmit = async e => {
+    e.preventDefault();
+
+    /*const response = await fetch('/api/moving-quote', {
+      method: 'POST',
+      body: JSON.stringify(this.state)
+    });
+
+    console.log(response);*/
+
+    alert('Email sent!');
+  };
+
   render() {
     return (
       <div>
@@ -63,12 +85,12 @@ export default class LandingPage extends Component {
         <section id='home-section'>
           <div className='container'>
             <div className='row'>
-              <div className='moving-form col-lg-5 col-sm-12'>
+              <form className='moving-form col-lg-5 col-sm-12' onSubmit={this.onSubmit}>
                 <h3 className='form-header'>GET A MOVING QUOTE</h3>
                 <div className='form-input'>
                   <TextField
                     id='fromLocation'
-                    className='fromLocation'
+                    className='moving-form-input'
                     name='fromLocation'
                     onChange={this.onChange}
                     label='From a City or Location'
@@ -78,7 +100,7 @@ export default class LandingPage extends Component {
                 <div className='form-input'>
                   <TextField
                     id='toLocation'
-                    className='toLocation'
+                    className='moving-form-input'
                     name='toLocation'
                     onChange={this.onChange}
                     label='To a City or Location'
@@ -87,9 +109,9 @@ export default class LandingPage extends Component {
                 </div>
                 <div className='form-input'>
                   <TextField
-                    id='formName'
-                    className='formName'
-                    name='formName'
+                    id='customerName'
+                    className='moving-form-input'
+                    name='customerName'
                     onChange={this.onChange}
                     label='Your Name'
                     variant='outlined'
@@ -97,9 +119,9 @@ export default class LandingPage extends Component {
                 </div>
                 <div className='form-input'>
                   <TextField
-                    id='formEmail'
-                    className='formEmail'
-                    name='formEmail'
+                    id='customerEmail'
+                    className='moving-form-input'
+                    name='customerEmail'
                     onChange={this.onChange}
                     label='Email'
                     variant='outlined'
@@ -107,9 +129,9 @@ export default class LandingPage extends Component {
                 </div>
                 <div className='form-input'>
                   <TextField
-                    id='formPhone'
-                    className='formPhone'
-                    name='formPhone'
+                    id='customerPhone'
+                    className='moving-form-input'
+                    name='customerPhone'
                     onChange={this.onChange}
                     label='Phone'
                     variant='outlined'
@@ -121,11 +143,12 @@ export default class LandingPage extends Component {
                     color='primary'
                     className='formBtn'
                     size='large'
+                    type="submit"
                   >
                     Submit
                   </Button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </section>{' '}

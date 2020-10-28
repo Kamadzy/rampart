@@ -70,7 +70,6 @@ img,
 .form-input {
   padding-bottom: 10px;
   padding-left: 20px;
-  /* width: 100% !important; */
 }
 
 .formBtn:hover {
@@ -78,24 +77,8 @@ img,
   color: #11161e;
 }
 
-.fromLocation {
-  width: 95% !important;
-}
-
-.toLocation {
-  width: 95% !important;
-}
-
-.formName {
-  width: 95% !important;
-}
-
-.formEmail {
-  width: 95% !important;
-}
-
-.formPhone {
-  width: 95% !important;
+.moving-form-input {
+  width: 95%;
 }
 
 .form-btn {
