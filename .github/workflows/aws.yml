@@ -63,7 +63,9 @@ jobs:
         ECR_REPOSITORY: rampart-repo
         IMAGE_TAG: ${{ github.sha }}
         APP_KEY: ${{ secrets.LARAVEL_APP_KEY }}
-        APP_URL: ${{ secrets.LARAVEL_APP_URL }}
+        MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+        MAILGUN_SECRET: ${{ secrets.MAILGUN_SECRET }}
+        MAIL_ENDPOINT: 'api.eu.mailgun.net'
       run: |
         # Build a docker container and
         # push it to ECR so that it can
