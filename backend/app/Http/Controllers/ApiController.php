@@ -24,6 +24,11 @@ class ApiController extends Controller
             (object) $validatedData['customer']
         );
         Mail::to('devtosha@gmail.com')->send($email);
+        if (Mail::failures()) {
+            return response()->json([
+                'sendMail' => false
+            ]);
+        }
 
         return response()->json($request->toArray());
     }
