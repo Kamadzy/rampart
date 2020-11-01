@@ -1,8 +1,8 @@
 # stage 1 - get composer dependencies
-FROM composer:latest AS composer
+FROM composer:2.0.3 AS composer
 
 # stage 2 - get npm/yarn dependencies
-FROM node:14.12.0-alpine AS react_build
+FROM node:14.15.0-alpine AS react_build
 
 WORKDIR /app
 COPY ./frontend/package.json ./frontend/yarn.lock ./

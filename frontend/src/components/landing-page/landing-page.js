@@ -8,6 +8,8 @@ import {
   faEnvelope,
   faPhoneAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import './landing-page.css';
 import main_logo from './img/Rampart Logo-01-crop.png';
@@ -32,14 +34,30 @@ export default class LandingPage extends Component {
   onSubmit = async e => {
     e.preventDefault();
 
-    /*const response = await fetch('/api/moving-quote', {
-      method: 'POST',
-      body: JSON.stringify(this.state)
-    });
+    try {
+      const data = {
+        fromLocation: this.state.fromLocation,
+        toLocation: this.state.toLocation,
+        customer: {
+          name: this.state.customerName,
+          email: this.state.customerEmail,
+          phone: this.state.customerPhone
+        }
+      };
+      await axios.post('/api/moving_quote', data);
 
-    console.log(response);*/
-
-    alert('Email sent!');
+      await Swal.fire({
+        icon: 'success',
+        title: 'Registered!',
+        html: 'Thank you for your request, we will contact you soon!'
+      });
+    } catch (e) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Oops... Validation failed!',
+        text: 'Please check the entered data and try again ;)'
+      });
+    }
   };
 
   render() {

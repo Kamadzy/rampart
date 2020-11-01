@@ -10,7 +10,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "bootstrap": "^4.5.2",
+    "axios": "^0.21.0",
+    "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
     "jspdf": "^2.1.1",
     "jspdf-customfonts": "0.0.4-rc.4",
@@ -20,6 +21,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-text-mask": "^5.4.3",
+    "sweetalert2": "^10.9.0",
     "typeface-roboto": "0.0.75",
     "typescript": "^3.9.7"
   },
@@ -45,5 +47,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://rampart.loc"
 }

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+# install php dependencies via composer
+composer install
+
+# copy .env.example to .env
+#copy-env
+
+# create storage link if not exist
+#create-storage-link
+
+# generate IDE helpers
+#generate-ide-helpers
+
+# need to return back control of shell to the next commands
+exec "$@"

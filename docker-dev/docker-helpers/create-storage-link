@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# remove if link is invalid
+if [[ -L "$PROJECT_PATH/public/storage" && ! -d "$PROJECT_PATH/public/storage" ]]; then
+  rm "$PROJECT_PATH/public/storage"
+fi
+
+if [[ ! -L "$PROJECT_PATH/public/storage" ]]; then
+  php artisan storage:link
+fi
