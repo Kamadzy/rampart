@@ -70,6 +70,7 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
+        echo $MAILGUN_DOMAIN && \
         docker build \
           --build-arg APP_KEY=$APP_KEY \
           --build-arg MAILGUN_DOMAIN=$MAILGUN_DOMAIN \
