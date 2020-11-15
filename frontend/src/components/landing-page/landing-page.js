@@ -21,6 +21,7 @@ export default class LandingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      sendingMovingForm: false,
       fromLocation: '',
       toLocation: '',
       customerName: '',
@@ -33,6 +34,8 @@ export default class LandingPage extends Component {
 
   onSubmit = async e => {
     e.preventDefault();
+
+    this.setState({sendingMovingForm: true});
 
     try {
       const data = {
@@ -58,6 +61,8 @@ export default class LandingPage extends Component {
         text: 'Please check the entered data and try again ;)'
       });
     }
+
+    this.setState({sendingMovingForm: false});
   };
 
   render() {
@@ -162,6 +167,7 @@ export default class LandingPage extends Component {
                     className='formBtn'
                     size='large'
                     type="submit"
+                    disabled={this.state.sendingMovingForm}
                   >
                     Submit
                   </Button>
