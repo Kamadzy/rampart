@@ -28,6 +28,6 @@ class MovingQuote extends Mailable
     {
         return $this
             ->subject('New moving quote!')
-            ->view('mail.movingQuote');
+            ->markdown('mail.movingQuote');
     }
 }

@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/moving_quote', [ApiController::class, 'movingQuote']);
+Route::post('/form_owner_op', [ApiController::class, 'formOwnerOp']);

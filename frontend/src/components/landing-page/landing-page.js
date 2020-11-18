@@ -18,16 +18,18 @@ import truck_img from './img/driver-app-img.png';
 import owner_op from './img/owner-operator.jpg';
 
 export default class LandingPage extends Component {
+  emptyState = {
+    sendingMovingForm: false,
+    fromLocation: '',
+    toLocation: '',
+    customerName: '',
+    customerEmail: '',
+    customerPhone: ''
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      sendingMovingForm: false,
-      fromLocation: '',
-      toLocation: '',
-      customerName: '',
-      customerEmail: '',
-      customerPhone: ''
-    };
+    this.state = this.emptyState;
   }
 
   onChange = e => this.setState({[e.target.name]: e.target.value});
@@ -54,14 +56,28 @@ export default class LandingPage extends Component {
         title: 'Registered!',
         html: 'Thank you for your request, we will contact you soon!'
       });
+
+      this.setState(this.emptyState);
     } catch (e) {
+      let msg = {
+        title: 'Oops... error!',
+        text: 'Something went wrong. Try to send again ;)'
+      };
+
+      if (e.response.status === 422) {
+        msg = {
+          title: 'Oops... Validation failed!',
+          text: 'Please check the entered data and try again ;)'
+        };
+      }
+
       await Swal.fire({
         icon: 'error',
-        title: 'Oops... Validation failed!',
-        text: 'Please check the entered data and try again ;)'
+        title: msg.title,
+        text: msg.text
       });
     }
-
+    
     this.setState({sendingMovingForm: false});
   };
 

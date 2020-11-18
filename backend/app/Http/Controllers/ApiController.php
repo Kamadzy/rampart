@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\MovingQuote;
+use App\Mail\{MovingQuote, FormOwnerOp};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,5 +31,22 @@ class ApiController extends Controller
         }
 
         return response()->json($request->toArray());
+    }
+
+    public function formOwnerOp(Request $request)
+    {
+        $file = $request->file;
+
+        $email = new FormOwnerOp('Antoxa');
+        $email->attach($file->getRealPath(), ['as' => 'ownerop.pdf', 'mime' => 'application/pdf']);
+
+        Mail::to('devtosha@gmail.com')->send($email);
+        if (Mail::failures()) {
+            return response()->json([
+                'sendMail' => false
+            ]);
+        }
+
+        return response()->json(true);
     }
 }

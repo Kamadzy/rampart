@@ -8,6 +8,9 @@ import './ownerop-app.css';
 import jspdf from 'jspdf';
 import SignatureFont from './SignatureFont';
 
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 export default class OwperopApp extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +33,7 @@ export default class OwperopApp extends Component {
       mainCompanyMc: '1100091',
     };
   }
-  generateOwnerOp() {
+  async generateOwnerOp() {
     const {
       dateOfAgr,
       lessorName,
@@ -48,10 +51,9 @@ export default class OwperopApp extends Component {
       mainCompanyEin,
       mainCompanyMc,
     } = this.state;
+
     const doc = new jspdf();
-    const images = importAll(
-      require.context('./images/', false, /\.(png|jpe?g)$/)
-    );
+    const images = importAll(require.context('./images/', false, /\.(png|jpe?g)$/));
     doc.setFontSize(12);
     doc.setTextColor('black');
 
@@ -106,16 +108,32 @@ export default class OwperopApp extends Component {
     doc.setFontSize(12);
     doc.text(85, 61, lessorName);
 
+    try {
+      const formData = new FormData();
+      formData.append('file', doc.output('blob'));
+
+      await axios.post('/api/form_owner_op', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (e) {
+      debugger;
+    }
+
     doc.save('rampart-ownerop.pdf');
+
     setTimeout(() => {
       this.setState({ loading: false });
     }, 4000);
   }
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({[e.target.name]: e.target.value});
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
+
   render() {
     const { loading } = this.state;
     return (
@@ -124,7 +142,7 @@ export default class OwperopApp extends Component {
           <p>AGREEMENT made on</p>
           <span>
             <MaskedInput
-              mask={(value) =>
+              mask={value =>
                 value
                   ? [
                       /[0-9]/,
