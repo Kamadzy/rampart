@@ -1,8 +1,10 @@
+import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import RampartApp from './RampartApp';
 import * as serviceWorker from './serviceWorker';
 
 import axios from 'axios';
@@ -10,7 +12,7 @@ axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RampartApp />
   </React.StrictMode>,
   document.getElementById('root')
 );

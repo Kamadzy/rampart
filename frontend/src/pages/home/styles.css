@@ -1,0 +1,92 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.space-between {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.section-img {
+	border-radius: 10px;
+}
+
+/* home section */
+#home-section {
+	min-height: 900px;
+	background: url(./images/main-wallpaper.png) no-repeat fixed center center;
+}
+
+/* about us */
+.main-slogan-content {
+  text-align: center;
+}
+.main-slogan {
+  width: 60%;
+}
+.about-content {
+  text-align: center;
+}
+
+/* driver app section */
+#main-section {
+  margin-top: 50px;
+}
+
+.driver-app-img img {
+  width: 85%;
+}
+
+.driver-app-content {
+  text-align: center;
+}
+
+.driver-app-btn:hover {
+  background-color: #f7d849 !important;
+  color: #11161e;
+}
+
+.ownerOp-app {
+  margin-top: 50px;
+}
+
+.ownerOp-app-img img {
+  width: 115%;
+}
+
+.ownerOp-app-content {
+  text-align: center;
+}
+
+.ownerOp-app-btn:hover {
+  background-color: #f7d849 !important;
+  color: #11161e;
+}
+/* contact form */
+#contact-section {
+  margin-top: 100px;
+}
+.about-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.p-header {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+/* footer */
+footer {
+  margin-top: 50px;
+}
+.p-footer {
+  color: lightgrey;
+  font-size: 10px;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .about-content {
+    margin-top: 50px;
+  }
+}

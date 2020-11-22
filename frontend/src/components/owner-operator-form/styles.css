@@ -1,0 +1,47 @@
+.owner-operator-form {
+    text-align: center;
+}
+
+.owner-operator-form .form-field-container {
+    padding-top: 10px;
+}
+
+.owner-operator-form .agreement-date {
+    border: none !important;
+    border-bottom: solid 1px #808080 !important;
+    margin: 0 10px;
+}
+
+.owner-operator-form .lessor-name {
+    left: -117px;
+}
+
+.owner-operator-form .lessor-address {
+    width: 39%;
+}
+
+.owner-operator-form .lessor-city {
+    width: 19%;
+    padding-right: 1% !important;
+}
+
+.owner-operator-form .lessor-state {
+    width: 8%;
+    padding-right: 1% !important;
+}
+
+.owner-operator-form .lessor-zip {
+    width: 12%;
+}
+
+.owner-operator-form .truck-vin {
+    width: 39%;
+}
+
+.owner-operator-form .trailer-vin {
+    width: 39%;
+}
+
+.owner-operator-form .lessor-signature {
+    width: 39%;
+}
