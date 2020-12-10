@@ -4,13 +4,17 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'typeface-roboto';
+import axios from 'axios';
 
 import './styles.css';
 
+import localforage from "localforage";
+
 import jspdf from 'jspdf';
 import SignatureFont from './SignatureFont';
+import moment from 'moment';
+import Swal from "sweetalert2";
 
-import axios from 'axios';
 
 class OwnerOperatorForm extends Component {
   constructor(props) {
@@ -36,7 +40,17 @@ class OwnerOperatorForm extends Component {
     };
   }
 
-  async generatePdf() {
+  async onSubmit() {
+    this.setState({loading: true});
+
+    const backgroundImages = await this.getBackgroundImages();
+
+    await this.generatePdf(backgroundImages);
+
+    this.setState({loading: false});
+  }
+
+  async generatePdf(backgroundImages) {
     const {
       agreementDate,
       lessorName,
@@ -56,12 +70,11 @@ class OwnerOperatorForm extends Component {
     } = this.state;
 
     const doc = new jspdf();
-    const images = importAll(require.context('./images/', false, /\.(png|jpe?g)$/));
 
     doc.setFontSize(12);
     doc.setTextColor('black');
 
-    doc.addImage(createImage(images[0]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[0], 'JPEG', 0, 0, 210, 297);
     doc.text(55, 50.3, agreementDate);
     doc.text(95, 50.3, mainCompanyName);
     doc.text(33, 65.5, mainCompanyAddress);
@@ -77,11 +90,11 @@ class OwnerOperatorForm extends Component {
     doc.text(89.5, 156, mainCompanyMc);
     doc.text(16, 286, mainCompanyName);
     doc.addPage();
-    doc.addImage(createImage(images[1]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[1], 'JPEG', 0, 0, 210, 297);
     doc.text(80, 56, lessorGross);
     doc.text(16, 286, mainCompanyName);
     doc.addPage();
-    doc.addImage(createImage(images[2]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[2], 'JPEG', 0, 0, 210, 297);
     doc.text(117, 155, agreementDate);
     doc.text(30, 217.5, mainCompanyName);
     doc.text(26, 238.5, lessorName);
@@ -95,13 +108,13 @@ class OwnerOperatorForm extends Component {
     doc.setFontSize(12);
     doc.text(16, 286, mainCompanyName);
     doc.addPage();
-    doc.addImage(createImage(images[3]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[3], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(10);
     doc.text(97, 49, mainCompanyName);
     doc.setFontSize(9);
     doc.text(28.5, 225.5, mainCompanyName);
     doc.addPage();
-    doc.addImage(createImage(images[4]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[4], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(12);
     doc.text(23, 35, agreementDate);
     doc.addFileToVFS('Meddon.ttf', SignatureFont);
@@ -112,6 +125,7 @@ class OwnerOperatorForm extends Component {
     doc.setFontSize(12);
     doc.text(85, 61, lessorName);
 
+    // send a document by email
     try {
       const formData = new FormData();
       formData.append('file', doc.output('blob'));
@@ -122,14 +136,15 @@ class OwnerOperatorForm extends Component {
         }
       });
     } catch (e) {
-      debugger;
+      await Swal.fire({
+        icon: 'error',
+        title: 'Oops... error!',
+        text: 'Something went wrong. Try to submit the document again ;)'
+      });
     }
 
+    // let user to download a document
     doc.save('rampart-ownerop.pdf');
-
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 4000);
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value});
@@ -261,7 +276,7 @@ class OwnerOperatorForm extends Component {
                 variant="contained"
                 color="primary"
                 size="large"
-                onClick={() => this.generatePdf()}
+                onClick={() => this.onSubmit()}
                 disabled={loading}
               >
                 Submit Document
@@ -271,27 +286,49 @@ class OwnerOperatorForm extends Component {
       </div>
     );
   }
-}
 
-/**
- * Create a HTMLImageElement for jspdf library
- * @param src
- * @returns {HTMLImageElement}
- */
-function createImage(src) {
-  const imageElement = new Image();
-  imageElement.src = src;
+  async getBackgroundImages() {
+    // try to get images from cache (if cache is not older then 24 hours)
+    const cache = await localforage.getItem('owner-operator-form-images');
+    if (cache !== null) {
+      const cachedAt = moment(cache.cachedAt);
+      if (cachedAt.diff(moment(), 'hours') < 24) {
+        return cache.images;
+      }
+    }
 
-  return imageElement;
+    // generate array of urls (from webpack assets)
+    const context = require.context('./images/', false, /\.jpeg$/);
+    const imageUrls = importAll(context);
+
+    // download all images simultaneously
+    const requests = imageUrls.map(async src => axios.get(src, {responseType: 'arraybuffer'}));
+    const responses = await Promise.all(requests);
+
+    // generate array of base64 strings
+    const images = responses.map(response => {
+      const raw = arrayBufferToBase64(response.data);
+
+      return `data:${response.headers['content-type']};base64,${raw}`;
+    });
+
+    // cache images
+    const now = moment().format('YYYY-MM-DD HH:mm');
+    await localforage.setItem('owner-operator-form-images', {images, cachedAt: now});
+
+    return images;
+  }
 }
 
 /**
  * Function to import all images from folder
- * @param r
- * @returns {*}
  */
 function importAll(r) {
   return r.keys().map(r);
+}
+
+function arrayBufferToBase64(arrayBuffer) {
+  return Buffer.from(arrayBuffer, 'binary').toString('base64');
 }
 
 export default OwnerOperatorForm;
