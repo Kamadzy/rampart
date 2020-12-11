@@ -24,7 +24,7 @@ class ApiController extends Controller
             $validatedData['toLocation'],
             (object) $validatedData['customer']
         );
-        Mail::to('devtosha@gmail.com')->send($email);
+        Mail::to(env('MAIL_TO'))->send($email);
         if (Mail::failures()) {
             return response()->json([
                 'sendMail' => false
@@ -54,7 +54,7 @@ class ApiController extends Controller
         $email = new FormOwnerOp($validatedData);
         $email->attach($form_document->getRealPath(), ['as' => 'ownerop.pdf', 'mime' => 'application/pdf']);
 
-        Mail::to('devtosha@gmail.com')->send($email);
+        Mail::to(env('MAIL_TO'))->send($email);
         if (Mail::failures()) {
             return response()->json([
                 'sendMail' => false
