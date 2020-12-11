@@ -8,13 +8,21 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'typeface-roboto';
 import jspdf from 'jspdf';
-import './driver-app.css';
-import SignatureFont from './SignatureFont';
+import './styles.css';
+import SignatureFont from '../../assets/fonts/SignatureFont';
+import Swal from 'sweetalert2';
+import localforage from "localforage";
+import moment from "moment";
+import {arrayBufferToBase64, getImageUrls} from "../../helpers";
+import axios from "axios";
 
-class DriverApp extends Component {
+class DriverForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      backgroundImages: [],
+      loading: false,
       mainCompanyName: 'Rampart Transportation INC',
       name: '',
       dateOfApp: '',
@@ -262,17 +270,60 @@ class DriverApp extends Component {
       emerMedDenName: '',
       emerMedDenPhone: '',
 
-      emplEmerCheck: false,
-      loading: false,
+      emplEmerCheck: false
     };
   }
-  generatePdf = () => {
-    this.setState({ loading: true });
+
+  async componentDidMount() {
+    window.scrollTo(0, 0);
+
+    // download and cache background images
+    await this.setBackgroundImages();
+  }
+
+  async onSubmit() {
+    this.setState({loading: true});
+
+    try {
+      const doc = await this.generatePdf();
+
+      await this.sendDocumentByEmail(doc);
+
+      await Swal.fire({
+        icon: 'success',
+        title: 'Registered!',
+        text: 'Thank you!'
+      });
+
+      // let user to download a document
+      doc.save('rampart-ownerop.pdf');
+    } catch (e) {
+      let msg = {
+        title: 'Oops... error!',
+        text: 'Something went wrong. Try to submit again ;)'
+      };
+
+      if (e.response !== undefined && e.response.status === 422) {
+        msg = {
+          title: 'Oops... Validation failed!',
+          text: 'Please check the entered data and try again ;)'
+        };
+      }
+
+      await Swal.fire({
+        icon: 'error',
+        title: msg.title,
+        text: msg.text
+      });
+    }
+
+    this.setState({loading: false});
+  }
+
+  generatePdf() {
+    this.setState({loading: true});
 
     const doc = new jspdf();
-    const images = importAll(
-      require.context('./images/', false, /\.(png|jpe?g)$/)
-    );
 
     doc.setFontSize(12);
     doc.setTextColor('black');
@@ -956,22 +1007,44 @@ class DriverApp extends Component {
       this.setState({ loading: false });
     }, 4000);
   };
-  // static sendPdf(blob) {
-  //   const formData = new FormData();
-  //   formData.append('file', blob, 'Driver_application.pdf');
 
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.open('POST', '/sendmail.php', true);
-  //   xhr.send(formData);
-  // }
+  async setBackgroundImages() {
+    // try to get images from cache (if cache is not older then 24 hours)
+    const cache = await localforage.getItem('driver-form-images');
+    if (cache !== null) {
+      const cachedAt = moment(cache.cachedAt);
+      if (cachedAt.diff(moment(), 'hours') < 24) {
+        this.setState({backgroundImages: cache.images});
+        return;
+      }
+    }
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  onChecked = (e, state) => this.setState({ [e.target.name]: state });
-  componentDidMount() {
-    window.scrollTo(0, 0);
+    // download all images simultaneously
+    const imageUrls = getImageUrls();
+    const requests = imageUrls.map(async src => axios.get(src, {responseType: 'arraybuffer'}));
+    const responses = await Promise.all(requests);
+
+    // generate array of base64 strings
+    const images = responses.map(response => {
+      const raw = arrayBufferToBase64(response.data);
+
+      return `data:${response.headers['content-type']};base64,${raw}`;
+    });
+
+    // cache images
+    const now = moment().format('YYYY-MM-DD HH:mm');
+    await localforage.setItem('driver-form-images', {images, cachedAt: now});
+
+    this.setState({backgroundImages: cache.images});
   }
+
+  onChange = (e) => this.setState({[e.target.name]: e.target.value});
+
+  onChecked = (e, state) => this.setState({[e.target.name]: state});
+
   render() {
-    const { loading } = this.state;
+    const {loading} = this.state;
+
     return (
       <div className='container'>
         <div className='page1-content'>
@@ -3986,25 +4059,4 @@ class DriverApp extends Component {
   }
 }
 
-/**
- * Create a HTMLImageElement for jspdf library
- * @param src
- * @returns {HTMLImageElement}
- */
-function createImage(src) {
-  const imageElement = new Image();
-  imageElement.src = src;
-
-  return imageElement;
-}
-
-/**
- * Function to import all images from folder
- * @param r
- * @returns {*}
- */
-function importAll(r) {
-  return r.keys().map(r);
-}
-
-export default DriverApp;
+export default DriverForm;

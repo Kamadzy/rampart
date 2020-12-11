@@ -7,10 +7,12 @@ import 'typeface-roboto';
 import axios from 'axios';
 import localforage from 'localforage';
 import jspdf from 'jspdf';
-import SignatureFont from './SignatureFont';
+import SignatureFont from '../../assets/fonts/SignatureFont';
 import moment from 'moment';
 import Swal from "sweetalert2";
 import './styles.css';
+
+import {arrayBufferToBase64, getImageUrls} from '../../helpers';
 
 class OwnerOperatorForm extends Component {
   constructor(props) {
@@ -35,6 +37,13 @@ class OwnerOperatorForm extends Component {
       mainCompanyEin: '83-3141615',
       mainCompanyMc: '1100091',
     };
+  }
+
+  async componentDidMount() {
+    window.scrollTo(0, 0);
+
+    // download and cache background images
+    await this.setBackgroundImages();
   }
 
   async onSubmit() {
@@ -161,13 +170,6 @@ class OwnerOperatorForm extends Component {
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value});
-
-  async componentDidMount() {
-    window.scrollTo(0, 0);
-
-    // download and cache background images
-    await this.setBackgroundImages();
-  }
 
   render() {
     const { loading } = this.state;
@@ -303,39 +305,6 @@ class OwnerOperatorForm extends Component {
     );
   }
 
-  async setBackgroundImages() {
-    // try to get images from cache (if cache is not older then 24 hours)
-    const cache = await localforage.getItem('owner-operator-form-images');
-    if (cache !== null) {
-      const cachedAt = moment(cache.cachedAt);
-      if (cachedAt.diff(moment(), 'hours') < 24) {
-        this.setState({backgroundImages: cache.images});
-        return;
-      }
-    }
-
-    // generate array of urls (from webpack assets)
-    const context = require.context('./images/', false, /\.jpeg$/);
-    const imageUrls = importAll(context);
-
-    // download all images simultaneously
-    const requests = imageUrls.map(async src => axios.get(src, {responseType: 'arraybuffer'}));
-    const responses = await Promise.all(requests);
-
-    // generate array of base64 strings
-    const images = responses.map(response => {
-      const raw = arrayBufferToBase64(response.data);
-
-      return `data:${response.headers['content-type']};base64,${raw}`;
-    });
-
-    // cache images
-    const now = moment().format('YYYY-MM-DD HH:mm');
-    await localforage.setItem('owner-operator-form-images', {images, cachedAt: now});
-
-    this.setState({backgroundImages: cache.images});
-  }
-
   async sendDocumentByEmail(doc) {
     const formData = new FormData();
     formData.append('document', doc.output('blob'));
@@ -355,17 +324,6 @@ class OwnerOperatorForm extends Component {
       }
     });
   }
-}
-
-/**
- * Function to import all images from folder
- */
-function importAll(r) {
-  return r.keys().map(r);
-}
-
-function arrayBufferToBase64(arrayBuffer) {
-  return Buffer.from(arrayBuffer, 'binary').toString('base64');
 }
 
 export default OwnerOperatorForm;

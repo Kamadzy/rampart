@@ -5,6 +5,7 @@ import localforage from 'localforage';
 
 import HomePage from './pages/home/home-page';
 import OwnerOperatorPage from './pages/owner-operator/owner-operator-page';
+import DriverPage from './pages/driver/driver-page';
 
 // set up localforage (helper to work with Web API cache - IndexedDB, local storage etc)
 localforage.config({
@@ -20,13 +21,13 @@ function RampartApp() {
           <HomePage />
         </Route>
 
-        {<Route path='/owner-operator-form'>
+        <Route path='/owner-operator-form'>
           <OwnerOperatorPage />
         </Route>
 
-          /*<Route path='/driver-application'>
-            <DriverForm />
-          </Route>*/}
+        <Route path='/driver-application'>
+          <DriverPage />
+        </Route>
       </Switch>
     </Router>
   );
