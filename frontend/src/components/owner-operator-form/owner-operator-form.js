@@ -5,22 +5,19 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'typeface-roboto';
 import axios from 'axios';
-
-import './styles.css';
-
-import localforage from "localforage";
-
+import localforage from 'localforage';
 import jspdf from 'jspdf';
 import SignatureFont from './SignatureFont';
 import moment from 'moment';
 import Swal from "sweetalert2";
-
+import './styles.css';
 
 class OwnerOperatorForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      backgroundImages: [],
       loading: false,
       agreementDate: '',
       lessorName: '',
@@ -43,15 +40,45 @@ class OwnerOperatorForm extends Component {
   async onSubmit() {
     this.setState({loading: true});
 
-    const backgroundImages = await this.getBackgroundImages();
+    try {
+      const doc = await this.generatePdf();
 
-    await this.generatePdf(backgroundImages);
+      await this.sendDocumentByEmail(doc);
+
+      await Swal.fire({
+        icon: 'success',
+        title: 'Registered!',
+        text: 'Thank you!'
+      });
+
+      // let user to download a document
+      doc.save('rampart-ownerop.pdf');
+    } catch (e) {
+      let msg = {
+        title: 'Oops... error!',
+        text: 'Something went wrong. Try to submit again ;)'
+      };
+
+      if (e.response !== undefined && e.response.status === 422) {
+        msg = {
+          title: 'Oops... Validation failed!',
+          text: 'Please check the entered data and try again ;)'
+        };
+      }
+
+      await Swal.fire({
+        icon: 'error',
+        title: msg.title,
+        text: msg.text
+      });
+    }
 
     this.setState({loading: false});
   }
 
-  async generatePdf(backgroundImages) {
+  generatePdf() {
     const {
+      backgroundImages,
       agreementDate,
       lessorName,
       lessorAddress,
@@ -69,88 +96,77 @@ class OwnerOperatorForm extends Component {
       mainCompanyMc,
     } = this.state;
 
+
+    if (backgroundImages.length === 0) {
+      throw new Error('Failed to build PDF document, background images are missing.');
+    }
+
     const doc = new jspdf();
 
     doc.setFontSize(12);
     doc.setTextColor('black');
 
     doc.addImage(backgroundImages[0], 'JPEG', 0, 0, 210, 297);
-    doc.text(55, 50.3, agreementDate);
-    doc.text(95, 50.3, mainCompanyName);
-    doc.text(33, 65.5, mainCompanyAddress);
-    doc.text(136.5, 65.5, mainCompanyUsdot);
-    doc.text(164, 65.5, mainCompanyEin);
-    doc.text(26, 77, lessorName);
-    doc.text(30, 87.5, lessorAddress);
-    doc.text(23, 97.5, lessorCity);
-    doc.text(92, 97.5, lessorState);
-    doc.text(116, 97.5, lessorZip);
-    doc.text(35, 110.5, truckVin);
-    doc.text(37, 123.5, trailerVin);
-    doc.text(89.5, 156, mainCompanyMc);
-    doc.text(16, 286, mainCompanyName);
+    doc.text(agreementDate, 55, 50.3);
+    doc.text(mainCompanyName, 95, 50.3);
+    doc.text(mainCompanyAddress, 33, 65.5);
+    doc.text(mainCompanyUsdot, 136.5, 65.5);
+    doc.text(mainCompanyEin, 164, 65.5);
+    doc.text(lessorName, 26, 77);
+    doc.text(lessorAddress, 30, 87.5);
+    doc.text(lessorCity, 23, 97.5);
+    doc.text(lessorState, 92, 97.5);
+    doc.text(lessorZip, 116, 97.5);
+    doc.text(truckVin, 35, 110.5);
+    doc.text(trailerVin, 37, 123.5);
+    doc.text(mainCompanyMc, 89.5, 156);
+    doc.text(mainCompanyName, 16, 286);
     doc.addPage();
     doc.addImage(backgroundImages[1], 'JPEG', 0, 0, 210, 297);
-    doc.text(80, 56, lessorGross);
-    doc.text(16, 286, mainCompanyName);
+    doc.text(lessorGross, 80, 56);
+    doc.text(mainCompanyName, 16, 286);
     doc.addPage();
     doc.addImage(backgroundImages[2], 'JPEG', 0, 0, 210, 297);
-    doc.text(117, 155, agreementDate);
-    doc.text(30, 217.5, mainCompanyName);
-    doc.text(26, 238.5, lessorName);
-    doc.text(168, 217.5, agreementDate);
-    doc.text(160, 238.5, agreementDate);
+    doc.text(agreementDate, 117, 155);
+    doc.text(mainCompanyName, 30, 217.5);
+    doc.text(lessorName, 26, 238.5);
+    doc.text(agreementDate, 168, 217.5);
+    doc.text(agreementDate, 160, 238.5);
     doc.addFileToVFS('Meddon.ttf', SignatureFont);
     doc.addFont('Meddon.ttf', 'Meddon', 'cursive');
     doc.setFont('Meddon', 'cursive');
-    doc.text(105, 238.5, lessorMainSignature);
+    doc.text(lessorMainSignature, 105, 238.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(16, 286, mainCompanyName);
+    doc.text(mainCompanyName, 16, 286);
     doc.addPage();
     doc.addImage(backgroundImages[3], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(10);
-    doc.text(97, 49, mainCompanyName);
+    doc.text(mainCompanyName, 97, 49);
     doc.setFontSize(9);
-    doc.text(28.5, 225.5, mainCompanyName);
+    doc.text(mainCompanyName, 28.5, 225.5);
     doc.addPage();
     doc.addImage(backgroundImages[4], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(12);
-    doc.text(23, 35, agreementDate);
+    doc.text(agreementDate, 23, 35);
     doc.addFileToVFS('Meddon.ttf', SignatureFont);
     doc.addFont('Meddon.ttf', 'Meddon', 'cursive');
     doc.setFont('Meddon', 'cursive');
-    doc.text(85, 35, lessorMainSignature);
+    doc.text(lessorMainSignature, 85, 35);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(85, 61, lessorName);
+    doc.text(lessorName, 85, 61);
 
-    // send a document by email
-    try {
-      const formData = new FormData();
-      formData.append('file', doc.output('blob'));
-
-      await axios.post('/api/form_owner_op', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-    } catch (e) {
-      await Swal.fire({
-        icon: 'error',
-        title: 'Oops... error!',
-        text: 'Something went wrong. Try to submit the document again ;)'
-      });
-    }
-
-    // let user to download a document
-    doc.save('rampart-ownerop.pdf');
+    return doc;
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value});
 
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
+
+    // download and cache background images
+    await this.setBackgroundImages();
   }
 
   render() {
@@ -287,13 +303,14 @@ class OwnerOperatorForm extends Component {
     );
   }
 
-  async getBackgroundImages() {
+  async setBackgroundImages() {
     // try to get images from cache (if cache is not older then 24 hours)
     const cache = await localforage.getItem('owner-operator-form-images');
     if (cache !== null) {
       const cachedAt = moment(cache.cachedAt);
       if (cachedAt.diff(moment(), 'hours') < 24) {
-        return cache.images;
+        this.setState({backgroundImages: cache.images});
+        return;
       }
     }
 
@@ -316,7 +333,27 @@ class OwnerOperatorForm extends Component {
     const now = moment().format('YYYY-MM-DD HH:mm');
     await localforage.setItem('owner-operator-form-images', {images, cachedAt: now});
 
-    return images;
+    this.setState({backgroundImages: cache.images});
+  }
+
+  async sendDocumentByEmail(doc) {
+    const formData = new FormData();
+    formData.append('document', doc.output('blob'));
+    formData.append('agreementDate', this.state.agreementDate);
+    formData.append('customerName', this.state.lessorName);
+    formData.append('customerAddress', this.state.lessorAddress);
+    formData.append('customerCity', this.state.lessorCity);
+    formData.append('customerState', this.state.lessorState);
+    formData.append('customerZip', this.state.lessorZip);
+    formData.append('truckVin', this.state.truckVin);
+    formData.append('trailerVin', this.state.trailerVin);
+    formData.append('customerSignature', this.state.lessorMainSignature);
+
+    await axios.post('/api/form_owner_op', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 }
 

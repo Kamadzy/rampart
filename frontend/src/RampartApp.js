@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import localforage from 'localforage';
+
 
 import HomePage from './pages/home/home-page';
 import OwnerOperatorPage from './pages/owner-operator/owner-operator-page';
 
-// init and set up localforage
-import localforage from 'localforage';
-
+// set up localforage (helper to work with Web API cache - IndexedDB, local storage etc)
 localforage.config({
   name: 'RampartDB',
   storeName: 'images'

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Mail\{MovingQuote, FormOwnerOp};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ApiController extends Controller
 {
-    public function movingQuote(Request $request)
+    public function movingQuote(Request $request): JsonResponse
     {
         $validatedData = $request->validate([
             'fromLocation'   => 'required|string',
@@ -33,12 +34,25 @@ class ApiController extends Controller
         return response()->json($request->toArray());
     }
 
-    public function formOwnerOp(Request $request)
+    public function formOwnerOp(Request $request): JsonResponse
     {
-        $file = $request->file;
+        $validatedData = $request->validate([
+            'document'          => 'required|file',
+            'agreementDate'     => 'required|string',
+            'customerName'      => 'required|string',
+            'customerAddress'   => 'required|string',
+            'customerCity'      => 'required|string',
+            'customerState'     => 'required|string',
+            'customerZip'       => 'required|string',
+            'truckVin'          => 'required|string',
+            'trailerVin'        => 'required|string',
+            'customerSignature' => 'required|string',
+        ]);
 
-        $email = new FormOwnerOp('Antoxa');
-        $email->attach($file->getRealPath(), ['as' => 'ownerop.pdf', 'mime' => 'application/pdf']);
+        $form_document = $validatedData['document'];
+
+        $email = new FormOwnerOp($validatedData);
+        $email->attach($form_document->getRealPath(), ['as' => 'ownerop.pdf', 'mime' => 'application/pdf']);
 
         Mail::to('devtosha@gmail.com')->send($email);
         if (Mail::failures()) {
@@ -47,6 +61,6 @@ class ApiController extends Controller
             ]);
         }
 
-        return response()->json(true);
+        return response()->json($request->toArray());
     }
 }
