@@ -39,7 +39,7 @@ class FormOwnerOp extends Mailable
     public function build(): self
     {
         return $this
-            ->subject('New owner op!')
+            ->subject('New owner operator application!')
             ->markdown('mail.formOwnerOp');
     }
 }

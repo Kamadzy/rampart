@@ -37,6 +37,10 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_NO_INTERACTION=1 COMPOSER_MEMORY_LIMIT=-
 COPY docker-helpers/ /usr/local/bin/
 RUN chmod -R +x /usr/local/bin/
 
+# Use the default production configuration
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN echo "upload_max_filesize = 32M" >> "$PHP_INI_DIR/php.ini"
+
 # 1. Update uid of www-data user to avoid problems with file permissions on the host machine
 # 2. Create DIR for composer and set proper owner
 # 3. Comment out 'user' and 'group' directives of php-fpm, because we run php-fpm from non root user

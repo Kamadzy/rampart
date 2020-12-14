@@ -12,7 +12,7 @@ import moment from 'moment';
 import Swal from "sweetalert2";
 import './styles.css';
 
-import {arrayBufferToBase64, getImageUrls} from '../../helpers';
+import {arrayBufferToBase64} from '../../helpers';
 
 class OwnerOperatorForm extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class OwnerOperatorForm extends Component {
     this.setState({loading: true});
 
     try {
-      const doc = await this.generatePdf();
+      const doc = this.generatePdf();
 
       await this.sendDocumentByEmail(doc);
 
@@ -104,7 +104,6 @@ class OwnerOperatorForm extends Component {
       mainCompanyEin,
       mainCompanyMc,
     } = this.state;
-
 
     if (backgroundImages.length === 0) {
       throw new Error('Failed to build PDF document, background images are missing.');
@@ -172,8 +171,6 @@ class OwnerOperatorForm extends Component {
   onChange = (e) => this.setState({[e.target.name]: e.target.value});
 
   render() {
-    const { loading } = this.state;
-
     return (
       <div className="owner-operator-form">
         <div>
@@ -202,6 +199,7 @@ class OwnerOperatorForm extends Component {
               guide={true}
               value={this.state.agreementDate}
               name="agreementDate"
+              disabled={this.state.loading}
               onChange={this.onChange}
             />
           </span>
@@ -214,6 +212,7 @@ class OwnerOperatorForm extends Component {
             className="lessor-name"
             value={this.state.lessorName}
             name="lessorName"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
         </div>
@@ -224,6 +223,7 @@ class OwnerOperatorForm extends Component {
             className="lessor-address"
             value={this.state.lessorAddress}
             name="lessorAddress"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
         </div>
@@ -234,6 +234,7 @@ class OwnerOperatorForm extends Component {
             className="lessor-city"
             value={this.state.lessorCity}
             name="lessorCity"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
           <TextField
@@ -245,6 +246,7 @@ class OwnerOperatorForm extends Component {
             }}
             value={this.state.lessorState}
             name="lessorState"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
           <TextField
@@ -253,6 +255,7 @@ class OwnerOperatorForm extends Component {
             className="lessor-zip"
             value={this.state.lessorZip}
             name="lessorZip"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
         </div>
@@ -263,6 +266,7 @@ class OwnerOperatorForm extends Component {
             className="truck-vin"
             value={this.state.truckVin}
             name="truckVin"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
         </div>
@@ -283,26 +287,62 @@ class OwnerOperatorForm extends Component {
             className="lessor-signature"
             value={this.state.lessorMainSignature}
             name="lessorMainSignature"
+            disabled={this.state.loading}
             onChange={this.onChange}
           />
         </div>
 
         <div className="d-flex justify-content-center mt-5">
-            {loading && <CircularProgress />}
-            {!loading && (
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={() => this.onSubmit()}
-                disabled={loading}
-              >
-                Submit Document
-              </Button>
-            )}
+          {this.state.loading && <CircularProgress />}
+          {!this.state.loading && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => this.onSubmit()}
+              disabled={this.state.loading}
+            >
+              Submit Document
+            </Button>
+          )}
         </div>
       </div>
     );
+  }
+
+  async setBackgroundImages() {
+    // try to get images from cache (if cache is not older then 24 hours)
+    const cache = await localforage.getItem('owner-operator-form-images');
+    if (cache !== null) {
+      const cachedAt = moment(cache.cachedAt);
+      if (cachedAt.diff(moment(), 'hours') < 24) {
+        this.setState({backgroundImages: cache.images});
+        return;
+      }
+    }
+
+    // download all images simultaneously
+    const context = require.context('./images', false, /\.(png|jpe?g)$/);
+    const imageUrls = context.keys().map(context);
+    if (imageUrls.length === 0) {
+      return;
+    }
+
+    const requests = imageUrls.map(async src => axios.get(src, {responseType: 'arraybuffer'}));
+    const responses = await Promise.all(requests);
+
+    // generate array of base64 strings
+    const images = responses.map(response => {
+      const raw = arrayBufferToBase64(response.data);
+
+      return `data:${response.headers['content-type']};base64,${raw}`;
+    });
+
+    // cache images
+    const now = moment().format('YYYY-MM-DD HH:mm');
+    await localforage.setItem('owner-operator-form-images', {images, cachedAt: now});
+
+    this.setState({backgroundImages: images});
   }
 
   async sendDocumentByEmail(doc) {

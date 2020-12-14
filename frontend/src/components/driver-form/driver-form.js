@@ -13,7 +13,7 @@ import SignatureFont from '../../assets/fonts/SignatureFont';
 import Swal from 'sweetalert2';
 import localforage from "localforage";
 import moment from "moment";
-import {arrayBufferToBase64, getImageUrls} from "../../helpers";
+import {arrayBufferToBase64} from "../../helpers";
 import axios from "axios";
 
 class DriverForm extends Component {
@@ -285,7 +285,7 @@ class DriverForm extends Component {
     this.setState({loading: true});
 
     try {
-      const doc = await this.generatePdf();
+      const doc = this.generatePdf();
 
       await this.sendDocumentByEmail(doc);
 
@@ -296,7 +296,7 @@ class DriverForm extends Component {
       });
 
       // let user to download a document
-      doc.save('rampart-ownerop.pdf');
+      doc.save('rampart-driver-application.pdf');
     } catch (e) {
       let msg = {
         title: 'Oops... error!',
@@ -321,691 +321,691 @@ class DriverForm extends Component {
   }
 
   generatePdf() {
-    this.setState({loading: true});
+    const {backgroundImages} = this.state;
+    if (backgroundImages.length === 0) {
+      throw new Error('Failed to build PDF document, background images are missing.');
+    }
 
     const doc = new jspdf();
 
     doc.setFontSize(12);
     doc.setTextColor('black');
     //page0
-    // doc.addImage(createImage(images[0]), 'JPEG', 0, 0, 210, 297);
+    // doc.addImage(backgroundImages[0], 'JPEG', 0, 0, 210, 297);
     // doc.addPage();
 
     // page1
-    doc.addImage(createImage(images[1]), 'JPEG', 0, 0, 210, 297);
-    doc.text(42, 70.1, this.state.name);
+    doc.addImage(backgroundImages[1], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 42, 70.1);
     //page2 Application for independent driver
     doc.addPage();
-    doc.addImage(createImage(images[2]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[2], 'JPEG', 0, 0, 210, 297);
 
-    doc.text(32, 50.5, this.state.name);
-    doc.text(35, 58.5, this.state.address);
-    doc.text(35, 66.5, this.state.city);
-    doc.text(100, 66.5, this.state.state);
-    doc.text(123, 66.5, this.state.zipCode);
-    doc.text(166.5, 50.5, this.state.dateOfApp);
-    doc.text(160, 58.5, this.state.hlfield);
-    doc.text(39, 77.5, this.state.telephone);
-    doc.text(127.5, 77.5, this.state.mobile);
-    doc.text(48.5, 85, this.state.socialNumber);
-    doc.text(133, 85, this.state.birthDate);
-    doc.text(67, 93, this.state.driverLic);
-    doc.text(125, 93, this.state.stateIssue);
-    doc.text(157, 93, this.state.expDate);
+    doc.text(this.state.name, 32, 50.5);
+    doc.text(this.state.address, 35, 58.5);
+    doc.text(this.state.city, 35, 66.5);
+    doc.text(this.state.state, 100, 66.5);
+    doc.text(this.state.zipCode, 123, 66.5);
+    doc.text(this.state.dateOfApp, 166.5, 50.5);
+    doc.text(this.state.hlfield, 160, 58.5);
+    doc.text(this.state.telephone, 39, 77.5);
+    doc.text(this.state.mobile, 127.5, 77.5);
+    doc.text(this.state.socialNumber, 48.5, 85);
+    doc.text(this.state.birthDate, 133, 85);
+    doc.text(this.state.driverLic, 67, 93);
+    doc.text(this.state.stateIssue, 125, 93);
+    doc.text(this.state.expDate, 157, 93);
 
-    doc.text(34, 108.5, this.state.address1);
-    doc.text(100, 108.5, this.state.city1);
-    doc.text(145, 108.5, this.state.state1);
-    doc.text(163, 108.5, this.state.zipCode1);
+    doc.text(this.state.address1, 34, 108.5);
+    doc.text(this.state.city1, 100, 108.5);
+    doc.text(this.state.state1, 145, 108.5);
+    doc.text(this.state.zipCode1, 163, 108.5);
 
-    doc.text(34, 118, this.state.address2);
-    doc.text(100, 118, this.state.city2);
-    doc.text(145, 118, this.state.state2);
-    doc.text(163, 118, this.state.zipCode2);
+    doc.text(this.state.address2, 34, 118);
+    doc.text(this.state.city2, 100, 118);
+    doc.text(this.state.state2, 145, 118);
+    doc.text(this.state.zipCode2, 163, 118);
 
-    doc.text(34, 127, this.state.address3);
-    doc.text(100, 127, this.state.city3);
-    doc.text(145, 127, this.state.state3);
-    doc.text(163, 127, this.state.zipCode3);
+    doc.text(this.state.address3, 34, 127);
+    doc.text(this.state.city3, 100, 127);
+    doc.text(this.state.state3, 145, 127);
+    doc.text(this.state.zipCode3, 163, 127);
 
     // experience in the operation table
-    doc.text(113.5, 143.8, this.state.expCheck ? 'x' : '');
+    doc.text(this.state.expCheck ? 'x' : '', 113.5, 143.8);
     doc.setFontSize(9.5);
     let typeOf1 = doc.splitTextToSize(this.state.typeOf1, 41);
-    doc.text(58, 157, typeOf1);
+    doc.text(typeOf1, 58, 157);
     doc.setFontSize(12);
-    doc.text(97.5, 159, this.state.tableDateFrom1);
-    doc.text(120, 159, this.state.tableDateTo1);
-    doc.text(144, 159, this.state.nOfM1);
+    doc.text(this.state.tableDateFrom1, 97.5, 159);
+    doc.text(this.state.tableDateTo1, 120, 159);
+    doc.text(this.state.nOfM1, 144, 159);
 
     doc.setFontSize(9.5);
     let typeOf2 = doc.splitTextToSize(this.state.typeOf2, 41);
-    doc.text(58, 162.5, typeOf2);
+    doc.text(typeOf2, 58, 162.5);
     doc.setFontSize(12);
-    doc.text(97.5, 165, this.state.tableDateFrom2);
-    doc.text(120, 165, this.state.tableDateTo2);
-    doc.text(144, 165, this.state.nOfM2);
+    doc.text(this.state.tableDateFrom2, 97.5, 165);
+    doc.text(this.state.tableDateTo2, 120, 165);
+    doc.text(this.state.nOfM2, 144, 165);
 
     doc.setFontSize(9.5);
     let typeOf3 = doc.splitTextToSize(this.state.typeOf3, 41);
-    doc.text(58, 168.5, typeOf3);
+    doc.text(typeOf3, 58, 168.5);
     doc.setFontSize(12);
-    doc.text(97.5, 171, this.state.tableDateFrom3);
-    doc.text(120, 171, this.state.tableDateTo3);
-    doc.text(144, 171, this.state.nOfM3);
+    doc.text(this.state.tableDateFrom3, 97.5, 171);
+    doc.text(this.state.tableDateTo3, 120, 171);
+    doc.text(this.state.nOfM3, 144, 171);
 
     doc.setFontSize(9.5);
     let typeOf4 = doc.splitTextToSize(this.state.typeOf4, 41);
-    doc.text(58, 174.5, typeOf4);
+    doc.text(typeOf4, 58, 174.5);
     doc.setFontSize(12);
-    doc.text(97.5, 177, this.state.tableDateFrom4);
-    doc.text(120, 177, this.state.tableDateTo4);
-    doc.text(144, 177, this.state.nOfM4);
+    doc.text(this.state.tableDateFrom4, 97.5, 177);
+    doc.text(this.state.tableDateTo4, 120, 177);
+    doc.text(this.state.nOfM4, 144, 177);
 
     doc.setFontSize(9.5);
     let typeOf5 = doc.splitTextToSize(this.state.typeOf5, 41);
-    doc.text(58, 180.5, typeOf5);
+    doc.text(typeOf5, 58, 180.5);
     doc.setFontSize(12);
-    doc.text(97.5, 183, this.state.tableDateFrom5);
-    doc.text(120, 183, this.state.tableDateTo5);
-    doc.text(144, 183, this.state.nOfM5);
+    doc.text(this.state.tableDateFrom5, 97.5, 183);
+    doc.text(this.state.tableDateTo5, 120, 183);
+    doc.text(this.state.nOfM5, 144, 183);
 
     doc.setFontSize(9.5);
     let typeOf6 = doc.splitTextToSize(this.state.typeOf6, 41);
-    doc.text(58, 186.5, typeOf6);
+    doc.text(typeOf6, 58, 186.5);
     doc.setFontSize(12);
-    doc.text(97.5, 189, this.state.tableDateFrom6);
-    doc.text(120, 189, this.state.tableDateTo6);
-    doc.text(144, 189, this.state.nOfM6);
+    doc.text(this.state.tableDateFrom6, 97.5, 189);
+    doc.text(this.state.tableDateTo6, 120, 189);
+    doc.text(this.state.nOfM6, 144, 189);
 
-    doc.text(179.5, 206, this.state.accCheck ? 'x' : '');
+    doc.text(this.state.accCheck ? 'x' : '', 179.5, 206);
 
-    doc.text(22, 220, this.state.accidentDate1);
+    doc.text(this.state.accidentDate1, 22, 220);
     doc.setFontSize(9.5);
     let accidentNature1 = doc.splitTextToSize(this.state.accidentNature1, 41);
-    doc.text(56, 217.5, accidentNature1);
+    doc.text(accidentNature1, 56, 217.5);
     let accidentFatal1 = doc.splitTextToSize(this.state.accidentFatal1, 41);
-    doc.text(98.5, 217.5, accidentFatal1);
+    doc.text(accidentFatal1, 98.5, 217.5);
     let accidentPers1 = doc.splitTextToSize(this.state.accidentPers1, 41);
-    doc.text(142, 217.5, accidentPers1);
+    doc.text(accidentPers1, 142, 217.5);
 
     doc.setFontSize(12);
-    doc.text(22, 225.5, this.state.accidentDate2);
+    doc.text(this.state.accidentDate2, 22, 225.5);
     doc.setFontSize(9.5);
     let accidentNature2 = doc.splitTextToSize(this.state.accidentNature2, 41);
-    doc.text(56, 223.5, accidentNature2);
+    doc.text(accidentNature2, 56, 223.5);
     let accidentFatal2 = doc.splitTextToSize(this.state.accidentFatal2, 41);
-    doc.text(98.5, 223.5, accidentFatal2);
+    doc.text(accidentFatal2, 98.5, 223.5);
     let accidentPers2 = doc.splitTextToSize(this.state.accidentPers2, 41);
-    doc.text(142, 223.5, accidentPers2);
+    doc.text(accidentPers2, 142, 223.5);
 
     doc.setFontSize(12);
-    doc.text(22, 232, this.state.accidentDate3);
+    doc.text(this.state.accidentDate3, 22, 232);
     doc.setFontSize(9.5);
     let accidentNature3 = doc.splitTextToSize(this.state.accidentNature3, 41);
-    doc.text(56, 230, accidentNature3);
+    doc.text(accidentNature3, 56, 230);
     let accidentFatal3 = doc.splitTextToSize(this.state.accidentFatal3, 41);
-    doc.text(98.5, 230, accidentFatal3);
+    doc.text(accidentFatal3, 98.5, 230);
     let accidentPers3 = doc.splitTextToSize(this.state.accidentPers3, 41);
-    doc.text(142, 230, accidentPers3);
+    doc.text(accidentPers3, 142, 230);
     doc.setFontSize(12);
-    doc.text(15, 286, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286);
 
     doc.addPage(); //PAGE 3 Violations of motor
-    doc.addImage(createImage(images[3]), 'PNG', 0, 0, 210, 297);
-    doc.text(177, 29, this.state.violCheck ? 'x' : '');
-    doc.text(22.5, 42.5, this.state.violatLoc1);
-    doc.text(92.5, 42.5, this.state.violatDate1);
+    doc.addImage(backgroundImages[3], 'PNG', 0, 0, 210, 297);
+    doc.text(this.state.violCheck ? 'x' : '', 177, 29);
+    doc.text(this.state.violatLoc1, 22.5, 42.5);
+    doc.text(this.state.violatDate1, 92.5, 42.5);
     doc.setFontSize(9.5);
     let violatCharge1 = doc.splitTextToSize(this.state.violatCharge1, 35);
-    doc.text(122.5, 40.5, violatCharge1);
+    doc.text(violatCharge1, 122.5, 40.5);
     let violatPenal1 = doc.splitTextToSize(this.state.violatPenal1, 35);
-    doc.text(155, 40.5, violatPenal1);
+    doc.text(violatPenal1, 155, 40.5);
     doc.setFontSize(12);
-    doc.text(22.5, 49.5, this.state.violatLoc2);
-    doc.text(92.5, 49.5, this.state.violatDate2);
+    doc.text(this.state.violatLoc2, 22.5, 49.5);
+    doc.text(this.state.violatDate2, 92.5, 49.5);
     doc.setFontSize(9.5);
     let violatCharge2 = doc.splitTextToSize(this.state.violatCharge2, 35);
-    doc.text(122.5, 46.5, violatCharge2);
+    doc.text(violatCharge2, 122.5, 46.5);
     let violatPenal2 = doc.splitTextToSize(this.state.violatPenal2, 35);
-    doc.text(155, 46.5, violatPenal2);
+    doc.text(violatPenal2, 155, 46.5);
     doc.setFontSize(12);
-    doc.text(22.5, 55, this.state.violatLoc3);
-    doc.text(92.5, 55, this.state.violatDate3);
+    doc.text(this.state.violatLoc3, 22.5, 55);
+    doc.text(this.state.violatDate3, 92.5, 55);
     doc.setFontSize(9.5);
     let violatCharge3 = doc.splitTextToSize(this.state.violatCharge3, 35);
-    doc.text(121.5, 52.5, violatCharge3);
+    doc.text(violatCharge3, 121.5, 52.5);
     let violatPenal3 = doc.splitTextToSize(this.state.violatPenal3, 35);
-    doc.text(154, 52.5, violatPenal3);
+    doc.text(violatPenal3, 154, 52.5);
     doc.setFontSize(12);
-    doc.text(22.5, 61, this.state.violatLoc4);
-    doc.text(92.5, 61, this.state.violatDate4);
+    doc.text(this.state.violatLoc4, 22.5, 61);
+    doc.text(this.state.violatDate4, 92.5, 61);
     doc.setFontSize(9.5);
     let violatCharge4 = doc.splitTextToSize(this.state.violatCharge4, 35);
-    doc.text(121.5, 58.5, violatCharge4);
+    doc.text(violatCharge4, 121.5, 58.5);
     let violatPenal4 = doc.splitTextToSize(this.state.violatPenal4, 35);
-    doc.text(154, 58.5, violatPenal4);
+    doc.text(violatPenal4, 154, 58.5);
     doc.setFontSize(12);
 
-    doc.text(167.5, 72.2, this.state.violCheckQYes1 ? 'x' : '');
-    doc.text(178, 72.2, this.state.violCheckQNo1 ? 'x' : '');
-    doc.text(167.5, 78.5, this.state.violCheckQYes2 ? 'x' : '');
-    doc.text(178, 78.5, this.state.violCheckQNo2 ? 'x' : '');
+    doc.text(this.state.violCheckQYes1 ? 'x' : '', 167.5, 72.2);
+    doc.text(this.state.violCheckQNo1 ? 'x' : '', 178, 72.2);
+    doc.text(this.state.violCheckQYes2 ? 'x' : '', 167.5, 78.5);
+    doc.text(this.state.violCheckQNo2 ? 'x' : '', 178, 78.5);
 
-    doc.text(29.5, 115, this.state.emplname1);
-    doc.text(33, 122, this.state.empladdress1);
-    doc.text(30, 127.5, this.state.emplcity1);
-    doc.text(23, 135, this.state.emplconpers1);
-    doc.text(75, 135, this.state.emplphone1);
-    doc.text(135, 116, this.state.emplDateFromM1);
-    doc.text(146.5, 116, this.state.emplDateFromY1);
-    doc.text(161, 116, this.state.emplDateToM1);
-    doc.text(171, 116, this.state.emplDateToY1);
+    doc.text(this.state.emplname1, 29.5, 115);
+    doc.text(this.state.empladdress1, 33, 122);
+    doc.text(this.state.emplcity1, 30, 127.5);
+    doc.text(this.state.emplconpers1, 23, 135);
+    doc.text(this.state.emplphone1, 75, 135);
+    doc.text(this.state.emplDateFromM1, 135, 116);
+    doc.text(this.state.emplDateFromY1, 146.5, 116);
+    doc.text(this.state.emplDateToM1, 161, 116);
+    doc.text(this.state.emplDateToY1, 171, 116);
     doc.setFontSize(9.5);
     let emplPosHeld1 = doc.splitTextToSize(this.state.emplPosHeld1, 35);
-    doc.text(150, 119, emplPosHeld1);
+    doc.text(emplPosHeld1, 150, 119);
     doc.setFontSize(12);
-    doc.text(133, 128, this.state.emplSalary1);
-    doc.text(158, 128, this.state.emplReasLeave1);
-    doc.text(131.5, 138, this.state.emplDrug1);
+    doc.text(this.state.emplSalary1, 133, 128);
+    doc.text(this.state.emplReasLeave1, 158, 128);
+    doc.text(this.state.emplDrug1, 131.5, 138);
 
-    doc.text(29.5, 152.5, this.state.emplname2);
-    doc.text(33, 158.5, this.state.empladdress2);
-    doc.text(30, 164.5, this.state.emplcity2);
-    doc.text(23, 174, this.state.emplconpers2);
-    doc.text(75, 174, this.state.emplphone2);
-    doc.text(135, 152.5, this.state.emplDateFromM2);
-    doc.text(146.5, 152.5, this.state.emplDateFromY2);
-    doc.text(161, 152.5, this.state.emplDateToM2);
-    doc.text(171, 152.5, this.state.emplDateToY2);
+    doc.text(this.state.emplname2, 29.5, 152.5);
+    doc.text(this.state.empladdress2, 33, 158.5);
+    doc.text(this.state.emplcity2, 30, 164.5);
+    doc.text(this.state.emplconpers2, 23, 174);
+    doc.text(this.state.emplphone2, 75, 174);
+    doc.text(this.state.emplDateFromM2, 135, 152.5);
+    doc.text(this.state.emplDateFromY2, 146.5, 152.5);
+    doc.text(this.state.emplDateToM2, 161, 152.5);
+    doc.text(this.state.emplDateToY2, 171, 152.5);
     doc.setFontSize(9.5);
     let emplPosHeld2 = doc.splitTextToSize(this.state.emplPosHeld2, 35);
-    doc.text(150, 155.5, emplPosHeld2);
+    doc.text(emplPosHeld2, 150, 155.5);
     doc.setFontSize(12);
-    doc.text(133, 164.5, this.state.emplSalary2);
-    doc.text(158, 164.5, this.state.emplReasLeave2);
-    doc.text(131.5, 174.5, this.state.emplDrug2);
+    doc.text(this.state.emplSalary2, 133, 164.5);
+    doc.text(this.state.emplReasLeave2, 158, 164.5);
+    doc.text(this.state.emplDrug2, 131.5, 174.5);
 
-    doc.text(29.5, 188.5, this.state.emplname3);
-    doc.text(33, 194.5, this.state.empladdress3);
-    doc.text(30, 200.5, this.state.emplcity3);
-    doc.text(23, 209, this.state.emplconpers3);
-    doc.text(75, 209, this.state.emplphone3);
-    doc.text(135, 189, this.state.emplDateFromM3);
-    doc.text(146.5, 189, this.state.emplDateFromY3);
-    doc.text(161, 189, this.state.emplDateToM3);
-    doc.text(171.5, 189, this.state.emplDateToY3);
+    doc.text(this.state.emplname3, 29.5, 188.5);
+    doc.text(this.state.empladdress3, 33, 194.5);
+    doc.text(this.state.emplcity3, 30, 200.5);
+    doc.text(this.state.emplconpers3, 23, 209);
+    doc.text(this.state.emplphone3, 75, 209);
+    doc.text(this.state.emplDateFromM3, 135, 189);
+    doc.text(this.state.emplDateFromY3, 146.5, 189);
+    doc.text(this.state.emplDateToM3, 161, 189);
+    doc.text(this.state.emplDateToY3, 171.5, 189);
     doc.setFontSize(9.5);
     let emplPosHeld3 = doc.splitTextToSize(this.state.emplPosHeld3, 35);
-    doc.text(150, 192, emplPosHeld3);
+    doc.text(emplPosHeld3, 150, 192);
     doc.setFontSize(12);
-    doc.text(133, 201, this.state.emplSalary3);
-    doc.text(158, 201, this.state.emplReasLeave3);
-    doc.text(131.5, 209.5, this.state.emplDrug3);
+    doc.text(this.state.emplSalary3, 133, 201);
+    doc.text(this.state.emplReasLeave3, 158, 201);
+    doc.text(this.state.emplDrug3, 131.5, 209.5);
 
-    doc.text(15, 286, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286);
     // setting main signature font
     doc.addFileToVFS('Meddon.ttf', SignatureFont);
     doc.addFont('Meddon.ttf', 'Meddon', 'cursive');
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(17);
-    doc.text(25, 245, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 25, 245);
     //switching back to normal font
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(138, 245, this.state.signDate);
+    doc.text(this.state.signDate, 138, 245);
 
     //page 4 driver's written authr to release
     doc.addPage();
-    doc.addImage(createImage(images[4]), 'JPEG', 0, 0, 210, 297);
-    doc.text(24, 170, this.state.name);
-    doc.text(130, 189, this.state.signDate);
+    doc.addImage(backgroundImages[4], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 24, 170);
+    doc.text(this.state.signDate, 130, 189);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(24, 189, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 24, 189);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
 
     //page 5-1 info from employer
     doc.addPage();
-    doc.addImage(createImage(images[5]), 'JPEG', 0, 0, 210, 297);
-    doc.text(46, 29.5, this.state.name);
-    doc.text(139, 29.5, this.state.driverLic);
-    doc.text(36, 35.5, this.state.address);
-    doc.text(141, 36, this.state.stateIssue);
-    doc.text(30, 41.5, this.state.city);
-    doc.text(125, 41.5, this.state.socialNumber);
-    doc.text(19, 54.7, this.state.emplname1);
-    doc.text(19, 59.8, this.state.empladdress1);
-    doc.text(19, 64.5, this.state.emplcity1);
-    doc.text(19, 69.5, this.state.emplconpers1);
-    doc.text(70, 69.5, this.state.emplphone1);
-    doc.text(26, 82.5, this.state.name);
+    doc.addImage(backgroundImages[5], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 46, 29.5);
+    doc.text(this.state.driverLic, 139, 29.5);
+    doc.text(this.state.address, 36, 35.5);
+    doc.text(this.state.stateIssue, 141, 36);
+    doc.text(this.state.city, 30, 41.5);
+    doc.text(this.state.socialNumber, 125, 41.5);
+    doc.text(this.state.emplname1, 19, 54.7);
+    doc.text(this.state.empladdress1, 19, 59.8);
+    doc.text(this.state.emplcity1, 19, 64.5);
+    doc.text(this.state.emplconpers1, 19, 69.5);
+    doc.text(this.state.emplphone1, 70, 69.5);
+    doc.text(this.state.name, 26, 82.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(17, 103.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 17, 103.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(78, 103.5, this.state.signDate);
-    doc.text(15, 285, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 78, 103.5);
+    doc.text(this.state.mainCompanyName, 15, 285);
 
     //page 5-2
     doc.addPage();
-    doc.addImage(createImage(images[5]), 'JPEG', 0, 0, 210, 297);
-    doc.text(46, 29.5, this.state.name);
-    doc.text(139, 29.5, this.state.driverLic);
-    doc.text(36, 35.5, this.state.address);
-    doc.text(141, 36, this.state.stateIssue);
-    doc.text(30, 41.5, this.state.city);
-    doc.text(125, 41.5, this.state.socialNumber);
-    doc.text(19, 54.7, this.state.emplname2);
-    doc.text(19, 59.8, this.state.empladdress2);
-    doc.text(19, 64.5, this.state.emplcity2);
-    doc.text(19, 69.5, this.state.emplconpers2);
-    doc.text(70, 69.5, this.state.emplphone2);
-    doc.text(26, 82.5, this.state.name);
+    doc.addImage(backgroundImages[5], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 46, 29.5);
+    doc.text(this.state.driverLic, 139, 29.5);
+    doc.text(this.state.address, 36, 35.5);
+    doc.text(this.state.stateIssue, 141, 36);
+    doc.text(this.state.city, 30, 41.5);
+    doc.text(this.state.socialNumber, 125, 41.5);
+    doc.text(this.state.emplname2, 19, 54.7);
+    doc.text(this.state.empladdress2, 19, 59.8);
+    doc.text(this.state.emplcity2, 19, 64.5);
+    doc.text(this.state.emplconpers2, 19, 69.5);
+    doc.text(this.state.emplphone2, 70, 69.5);
+    doc.text(this.state.name, 26, 82.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(17, 103.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 17, 103.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(78, 103.5, this.state.signDate);
-    doc.text(15, 285, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 78, 103.5);
+    doc.text(this.state.mainCompanyName, 15, 285);
 
     //page 5-3
     doc.addPage();
-    doc.addImage(createImage(images[5]), 'JPEG', 0, 0, 210, 297);
-    doc.text(46, 29.5, this.state.name);
-    doc.text(139, 29.5, this.state.driverLic);
-    doc.text(36, 35.5, this.state.address);
-    doc.text(141, 36, this.state.stateIssue);
-    doc.text(30, 41.5, this.state.city);
-    doc.text(125, 41.5, this.state.socialNumber);
-    doc.text(19, 54.7, this.state.emplname3);
-    doc.text(19, 59.8, this.state.empladdress3);
-    doc.text(19, 64.5, this.state.emplcity3);
-    doc.text(19, 69.5, this.state.emplconpers3);
-    doc.text(70, 69.5, this.state.emplphone3);
-    doc.text(26, 82.5, this.state.name);
+    doc.addImage(backgroundImages[5], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 46, 29.5);
+    doc.text(this.state.driverLic, 139, 29.5);
+    doc.text(this.state.address, 36, 35.5);
+    doc.text(this.state.stateIssue, 141, 36);
+    doc.text(this.state.city, 30, 41.5);
+    doc.text(this.state.socialNumber, 125, 41.5);
+    doc.text(this.state.emplname3, 19, 54.7);
+    doc.text(this.state.empladdress3, 19, 59.8);
+    doc.text(this.state.emplcity3, 19, 64.5);
+    doc.text(this.state.emplconpers3, 19, 69.5);
+    doc.text(this.state.emplphone3, 70, 69.5);
+    doc.text(this.state.name, 26, 82.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(17, 103.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 17, 103.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(78, 103.5, this.state.signDate);
-    doc.text(15, 285, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 78, 103.5);
+    doc.text(this.state.mainCompanyName, 15, 285);
 
     //page6 DMV
     doc.addPage();
-    doc.addImage(createImage(images[6]), 'JPEG', 0, 0, 210, 297);
-    doc.text(24, 85, this.state.name);
-    doc.text(142, 85, this.state.driverLic);
-    doc.text(55, 92.5, this.state.mainCompanyName);
-    doc.text(42, 132, '3029 Wolfe CT');
-    doc.text(120, 132, 'Antelope');
-    doc.text(178, 132, 'CA');
-    doc.text(27, 143, this.state.signDate);
+    doc.addImage(backgroundImages[6], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 24, 85);
+    doc.text(this.state.driverLic, 142, 85);
+    doc.text(this.state.mainCompanyName, 55, 92.5);
+    doc.text('3029 Wolfe CT', 42, 132);
+    doc.text('Antelope', 120, 132);
+    doc.text('CA', 178, 132);
+    doc.text(this.state.signDate, 27, 143);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(85, 143, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 85, 143);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(110, 153, this.state.mainCompanyName);
-    doc.text(42, 205, '3029 Wolfe CT');
-    doc.text(120, 205, 'Antelope');
-    doc.text(178, 205, 'CA');
-    doc.text(27, 215.5, this.state.signDate);
+    doc.text(this.state.mainCompanyName, 110, 153);
+    doc.text('3029 Wolfe CT', 42, 205);
+    doc.text('Antelope', 120, 205);
+    doc.text('CA', 178, 205);
+    doc.text(this.state.signDate, 27, 215.5);
 
     //page7 annual review
     doc.addPage();
-    doc.addImage(createImage(images[7]), 'JPEG', 0, 0, 210, 297);
-    doc.text(49, 41.4, this.state.name);
-    doc.text(139, 41.4, this.state.driverLic);
-    doc.text(40, 47.5, this.state.address);
-    doc.text(140, 47.5, this.state.stateIssue);
-    doc.text(32, 53, this.state.city);
-    doc.text(124, 53, this.state.socialNumber);
-    doc.text(34, 99, 'X');
-    doc.text(125, 130, this.state.signDate);
-    doc.text(15, 286, this.state.mainCompanyName);
+    doc.addImage(backgroundImages[7], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 49, 41.4);
+    doc.text(this.state.driverLic, 139, 41.4);
+    doc.text(this.state.address, 40, 47.5);
+    doc.text(this.state.stateIssue, 140, 47.5);
+    doc.text(this.state.city, 32, 53);
+    doc.text(this.state.socialNumber, 124, 53);
+    doc.text('X', 34, 99);
+    doc.text(this.state.signDate, 125, 130);
+    doc.text(this.state.mainCompanyName, 15, 286);
 
     //page8 motor venicle
     doc.addPage();
-    doc.addImage(createImage(images[8]), 'JPEG', 0, 0, 210, 297);
-    doc.text(49, 40.5, this.state.name);
-    doc.text(141, 41, this.state.driverLic);
-    doc.text(40, 46, this.state.address);
-    doc.text(140, 46, this.state.stateIssue);
-    doc.text(32, 51.5, this.state.city);
-    doc.text(124, 52.5, this.state.socialNumber);
-    doc.text(182.7, 75, this.state.sertOfViolCheck ? 'X' : '');
-    doc.text(23, 95, this.state.sertOfViolTableDate1);
-    doc.text(54.5, 95, this.state.sertOfViolTableOffense1);
-    doc.text(110, 95, this.state.sertOfViolTableLoc1);
-    doc.text(161.5, 95, this.state.sertOfViolTableTypeOf1);
+    doc.addImage(backgroundImages[8], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 49, 40.5);
+    doc.text(this.state.driverLic, 141, 41);
+    doc.text(this.state.address, 40, 46);
+    doc.text(this.state.stateIssue, 140, 46);
+    doc.text(this.state.city, 32, 51.5);
+    doc.text(this.state.socialNumber, 124, 52.5);
+    doc.text(this.state.sertOfViolCheck ? 'X' : '', 182.7, 75);
+    doc.text(this.state.sertOfViolTableDate1, 23, 95);
+    doc.text(this.state.sertOfViolTableOffense1, 54.5, 95);
+    doc.text(this.state.sertOfViolTableLoc1, 110, 95);
+    doc.text(this.state.sertOfViolTableTypeOf1, 161.5, 95);
 
-    doc.text(23, 100.7, this.state.sertOfViolTableDate2);
-    doc.text(54.5, 100.7, this.state.sertOfViolTableOffense2);
-    doc.text(110, 100.7, this.state.sertOfViolTableLoc2);
-    doc.text(161, 100.7, this.state.sertOfViolTableTypeOf2);
+    doc.text(this.state.sertOfViolTableDate2, 23, 100.7);
+    doc.text(this.state.sertOfViolTableOffense2, 54.5, 100.7);
+    doc.text(this.state.sertOfViolTableLoc2, 110, 100.7);
+    doc.text(this.state.sertOfViolTableTypeOf2, 161, 100.7);
 
-    doc.text(23, 107, this.state.sertOfViolTableDate3);
-    doc.text(54.5, 107, this.state.sertOfViolTableOffense3);
-    doc.text(110, 107, this.state.sertOfViolTableLoc3);
-    doc.text(161, 107, this.state.sertOfViolTableTypeOf3);
+    doc.text(this.state.sertOfViolTableDate3, 23, 107);
+    doc.text(this.state.sertOfViolTableOffense3, 54.5, 107);
+    doc.text(this.state.sertOfViolTableLoc3, 110, 107);
+    doc.text(this.state.sertOfViolTableTypeOf3, 161, 107);
 
-    doc.text(23, 113.5, this.state.sertOfViolTableDate4);
-    doc.text(54.5, 113.5, this.state.sertOfViolTableOffense4);
-    doc.text(110, 113.5, this.state.sertOfViolTableLoc4);
-    doc.text(161, 113.5, this.state.sertOfViolTableTypeOf4);
+    doc.text(this.state.sertOfViolTableDate4, 23, 113.5);
+    doc.text(this.state.sertOfViolTableOffense4, 54.5, 113.5);
+    doc.text(this.state.sertOfViolTableLoc4, 110, 113.5);
+    doc.text(this.state.sertOfViolTableTypeOf4, 161, 113.5);
 
-    doc.text(23, 119.5, this.state.sertOfViolTableDate5);
-    doc.text(54.4, 119.5, this.state.sertOfViolTableOffense5);
-    doc.text(110, 119.5, this.state.sertOfViolTableLoc5);
-    doc.text(161, 119.5, this.state.sertOfViolTableTypeOf5);
+    doc.text(this.state.sertOfViolTableDate5, 23, 119.5);
+    doc.text(this.state.sertOfViolTableOffense5, 54.4, 119.5);
+    doc.text(this.state.sertOfViolTableLoc5, 110, 119.5);
+    doc.text(this.state.sertOfViolTableTypeOf5, 161, 119.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(25, 227, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 25, 227);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(133, 227, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 133, 227);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page9 education material and alco policy
     doc.addPage();
-    doc.addImage(createImage(images[9]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[9], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(18);
-    doc.text(77, 178, this.state.name);
+    doc.text(this.state.name, 77, 178);
     doc.setFont('Meddon', 'cursive');
-    doc.text(72, 192, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 72, 192);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //-page10
     doc.addPage();
-    doc.addImage(createImage(images[10]), 'JPEG', 0, 0, 210, 297);
-    doc.text(68, 55.5, this.state.name);
-    doc.text(66.5, 61.5, this.state.driverLic);
-    doc.text(58, 67, this.state.address);
-    doc.text(68, 73, this.state.stateIssue);
-    doc.text(51, 79, this.state.city);
-    doc.text(51, 86.5, this.state.socialNumber);
-    doc.text(171.5, 116, this.state.alcDrugCheckQYes2 ? 'X' : '');
-    doc.text(179.5, 116, this.state.alcDrugCheckQNo2 ? 'X' : '');
-    doc.text(171.5, 125, this.state.alcDrugCheckQYes3 ? 'X' : '');
-    doc.text(179.5, 125, this.state.alcDrugCheckQNo3 ? 'X' : '');
-    doc.text(171.5, 135.5, this.state.alcDrugCheckQYes4 ? 'X' : '');
-    doc.text(179.5, 135.5, this.state.alcDrugCheckQNo4 ? 'X' : '');
+    doc.addImage(backgroundImages[10], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 68, 55.5);
+    doc.text(this.state.driverLic, 66.5, 61.5);
+    doc.text(this.state.address, 58, 67);
+    doc.text(this.state.stateIssue, 68, 73);
+    doc.text(this.state.city, 51, 79);
+    doc.text(this.state.socialNumber, 51, 86.5);
+    doc.text(this.state.alcDrugCheckQYes2 ? 'X' : '', 171.5, 116);
+    doc.text(this.state.alcDrugCheckQNo2 ? 'X' : '', 179.5, 116);
+    doc.text(this.state.alcDrugCheckQYes3 ? 'X' : '', 171.5, 125);
+    doc.text(this.state.alcDrugCheckQNo3 ? 'X' : '', 179.5, 125);
+    doc.text(this.state.alcDrugCheckQYes4 ? 'X' : '', 171.5, 135.5);
+    doc.text(this.state.alcDrugCheckQNo4 ? 'X' : '', 179.5, 135.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(36, 212.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 36, 212.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(148, 212.5, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 148, 212.5);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page11 Acknowledge receipt of
     doc.addPage();
-    doc.addImage(createImage(images[11]), 'JPEG', 0, 0, 210, 297);
-    doc.text(45, 124.5, this.state.name);
-    doc.text(152, 124.5, this.state.signDate);
+    doc.addImage(backgroundImages[11], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 45, 124.5);
+    doc.text(this.state.signDate, 152, 124.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(107, 124.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 107, 124.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page12 gergun regular form
     doc.addPage();
-    doc.addImage(createImage(images[12]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[12], 'JPEG', 0, 0, 210, 297);
 
     //page13-w9
     doc.addPage();
-    doc.addImage(createImage(images[13]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[13], 'JPEG', 0, 0, 210, 297);
 
     //page14 inspection report
     doc.addPage();
-    doc.addImage(createImage(images[14]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[14], 'JPEG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(56, 240.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 56, 240.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(133, 240.5, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 133, 240.5);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page15 certificate of driver's road test
     doc.addPage();
-    doc.addImage(createImage(images[15]), 'JPEG', 0, 0, 210, 297);
-    doc.text(68, 87, this.state.name);
-    doc.text(82, 95.5, this.state.socialNumber);
-    doc.text(115, 104, this.state.driverLic);
-    doc.text(54, 112, this.state.stateIssue);
-    doc.text(65, 235.4, '3029 Wolfe CT Antelope CA 95843');
+    doc.addImage(backgroundImages[15], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 68, 87);
+    doc.text(this.state.socialNumber, 82, 95.5);
+    doc.text(this.state.driverLic, 115, 104);
+    doc.text(this.state.stateIssue, 54, 112);
+    doc.text('3029 Wolfe CT Antelope CA 95843', 65, 235.4);
 
     //page16 cargo training
     doc.addPage();
-    doc.addImage(createImage(images[16]), 'JPEG', 0, 0, 210, 297);
-    doc.text(25, 99.5, this.state.inspCargoCheck ? 'X' : '');
-    doc.text(25, 109.8, this.state.genSecCargoCheck ? 'X' : '');
-    doc.text(25, 119, this.state.perfCritCheck ? 'X' : '');
-    doc.text(25, 128.5, this.state.standartsSecuCheck ? 'X' : '');
-    doc.text(25, 138, this.state.secuPartCheck ? 'X' : '');
-    doc.text(25, 147.5, this.state.determWorkCheck ? 'X' : '');
-    doc.text(25, 156.5, this.state.determAggrCheck ? 'X' : '');
-    doc.text(25, 165.5, this.state.determMinNumbCheck ? 'X' : '');
-    doc.text(25, 175, this.state.frontStructCheck ? 'X' : '');
+    doc.addImage(backgroundImages[16], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.inspCargoCheck ? 'X' : '', 25, 99.5);
+    doc.text(this.state.genSecCargoCheck ? 'X' : '', 25, 109.8);
+    doc.text(this.state.perfCritCheck ? 'X' : '', 25, 119);
+    doc.text(this.state.standartsSecuCheck ? 'X' : '', 25, 128.5);
+    doc.text(this.state.secuPartCheck ? 'X' : '', 25, 138);
+    doc.text(this.state.determWorkCheck ? 'X' : '', 25, 147.5);
+    doc.text(this.state.determAggrCheck ? 'X' : '', 25, 156.5);
+    doc.text(this.state.determMinNumbCheck ? 'X' : '', 25, 165.5);
+    doc.text(this.state.frontStructCheck ? 'X' : '', 25, 175);
     doc.setFontSize(16);
-    doc.text(27, 193.5, this.state.name);
+    doc.text(this.state.name, 27, 193.5);
     doc.setFont('Meddon', 'cursive');
-    doc.text(27, 211.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 27, 211.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(133, 211.5, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 133, 211.5);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page17 disclosure of info
     doc.addPage();
-    doc.addImage(createImage(images[17]), 'JPEG', 0, 0, 210, 297);
-    doc.text(135, 227.5, this.state.signDate);
+    doc.addImage(backgroundImages[17], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.signDate, 135, 227.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(25, 227.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 25, 227.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page18
     doc.addPage();
-    doc.addImage(createImage(images[18]), 'JPEG', 0, 0, 210, 297);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.addImage(backgroundImages[18], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page19
     doc.addPage();
-    doc.addImage(createImage(images[19]), 'JPEG', 0, 0, 210, 297);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.addImage(backgroundImages[19], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page20 disqualifying offenses
     doc.addPage();
-    doc.addImage(createImage(images[20]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[20], 'JPEG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(40, 187, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 40, 187);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(115, 187.5, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 115, 187.5);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page21 receipt of driver rights
     doc.addPage();
-    doc.addImage(createImage(images[21]), 'JPEG', 0, 0, 210, 297);
-    doc.text(25.7, 92.5, this.state.receiptAcknowCheck ? 'X' : '');
-    doc.text(24.3, 128.7, this.state.reviewInfoCheck ? 'X' : '');
-    doc.text(24.3, 142.7, this.state.requestCorrCheck ? 'X' : '');
-    doc.text(24.3, 156, this.state.rebutInfoCheck ? 'X' : '');
+    doc.addImage(backgroundImages[21], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.receiptAcknowCheck ? 'X' : '', 25.7, 92.5);
+    doc.text(this.state.reviewInfoCheck ? 'X' : '', 24.3, 128.7);
+    doc.text(this.state.requestCorrCheck ? 'X' : '', 24.3, 142.7);
+    doc.text(this.state.rebutInfoCheck ? 'X' : '', 24.3, 156);
     doc.setFontSize(16);
-    doc.text(28, 180, this.state.name);
+    doc.text(this.state.name, 28, 180);
     doc.setFont('Meddon', 'cursive');
-    doc.text(28, 198, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 28, 198);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(134, 199.5, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 134, 199.5);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page22 Unauthorized passengers
     doc.addPage();
-    doc.addImage(createImage(images[22]), 'JPEG', 0, 0, 210, 297);
-    doc.text(128, 238.5, this.state.signDate);
+    doc.addImage(backgroundImages[22], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.signDate, 128, 238.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(24, 237, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 24, 237);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page23
     doc.addPage();
-    doc.addImage(createImage(images[23]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[23], 'JPEG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(25, 121.5, this.state.mainSignature);
-    doc.text(25, 242.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 25, 121.5);
+    doc.text(this.state.mainSignature, 25, 242.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(135, 121.5, this.state.signDate);
-    doc.text(135, 242.5, this.state.signDate);
+    doc.text(this.state.signDate, 135, 121.5);
+    doc.text(this.state.signDate, 135, 242.5);
 
     //page24
     doc.addPage();
-    doc.addImage(createImage(images[24]), 'JPEG', 0, 0, 210, 297);
-    doc.text(46, 195, this.state.name);
-    doc.text(120, 196.5, this.state.socialNumber);
-    doc.text(38, 204, this.state.address);
-    doc.text(120, 206, this.state.city);
-    doc.text(150, 207, this.state.stateIssue);
-    doc.text(160, 207, this.state.zipCode);
-    doc.text(48, 214, this.state.stateIssue);
-    doc.text(132, 216, this.state.driverLic);
-    doc.text(130, 229.5, this.state.signDate);
+    doc.addImage(backgroundImages[24], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.name, 46, 195);
+    doc.text(this.state.socialNumber, 120, 196.5);
+    doc.text(this.state.address, 38, 204);
+    doc.text(this.state.city, 120, 206);
+    doc.text(this.state.stateIssue, 150, 207);
+    doc.text(this.state.zipCode, 160, 207);
+    doc.text(this.state.stateIssue, 48, 214);
+    doc.text(this.state.driverLic, 132, 216);
+    doc.text(this.state.signDate, 130, 229.5);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(50, 228, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 50, 228);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page25
     doc.addPage();
-    doc.addImage(createImage(images[25]), 'JPEG', 0, 0, 210, 297);
-    doc.text(24.5, 80.3, this.state.havingAlco ? 'X' : '');
-    doc.text(24.5, 90.8, this.state.beingUnderAlco ? 'X' : '');
-    doc.text(24.5, 100, this.state.beingUnderCont ? 'X' : '');
-    doc.text(24.5, 109.5, this.state.refuseTakeAlco ? 'X' : '');
-    doc.text(24.5, 119, this.state.leaveScene ? 'X' : '');
-    doc.text(24.5, 128, this.state.useVenicle ? 'X' : '');
-    doc.text(24.5, 137.5, this.state.driveSusp ? 'X' : '');
-    doc.text(24.5, 147, this.state.speedExc ? 'X' : '');
-    doc.text(24.5, 156.3, this.state.followClose ? 'X' : '');
-    doc.text(24.5, 165.6, this.state.violatTraffic ? 'X' : '');
-    doc.text(24.5, 174.7, this.state.causeFatal ? 'X' : '');
-    doc.text(24.5, 184, this.state.makingImprop ? 'X' : '');
+    doc.addImage(backgroundImages[25], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.havingAlco ? 'X' : '', 24.5, 80.3);
+    doc.text(this.state.beingUnderAlco ? 'X' : '', 24.5, 90.8);
+    doc.text(this.state.beingUnderCont ? 'X' : '', 24.5, 100);
+    doc.text(this.state.refuseTakeAlco ? 'X' : '', 24.5, 109.5);
+    doc.text(this.state.leaveScene ? 'X' : '', 24.5, 119);
+    doc.text(this.state.useVenicle ? 'X' : '', 24.5, 128);
+    doc.text(this.state.driveSusp ? 'X' : '', 24.5, 137.5);
+    doc.text(this.state.speedExc ? 'X' : '', 24.5, 147);
+    doc.text(this.state.followClose ? 'X' : '', 24.5, 156.3);
+    doc.text(this.state.violatTraffic ? 'X' : '', 24.5, 165.6);
+    doc.text(this.state.causeFatal ? 'X' : '', 24.5, 174.7);
+    doc.text(this.state.makingImprop ? 'X' : '', 24.5, 184);
     doc.setFontSize(16);
-    doc.text(26, 202, this.state.name);
+    doc.text(this.state.name, 26, 202);
     doc.setFont('Meddon', 'cursive');
-    doc.text(26, 215.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 26, 215.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(133, 216, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 133, 216);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page26
     doc.addPage();
-    doc.addImage(createImage(images[26]), 'JPEG', 0, 0, 210, 297);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.addImage(backgroundImages[26], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page27
     doc.addPage();
-    doc.addImage(createImage(images[27]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[27], 'JPEG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(14);
-    doc.text(44, 42, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 44, 42);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page28
     doc.addPage();
-    doc.addImage(createImage(images[28]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[28], 'JPEG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(25, 247, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 25, 247);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(130, 248, this.state.signDate);
-    doc.text(15, 286.5, this.state.mainCompanyName);
+    doc.text(this.state.signDate, 130, 248);
+    doc.text(this.state.mainCompanyName, 15, 286.5);
 
     //page29
     doc.addPage();
-    doc.addImage(createImage(images[29]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[29], 'JPEG', 0, 0, 210, 297);
     doc.setFont('Meddon', 'cursive');
     doc.setFontSize(16);
-    doc.text(45, 258.5, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 45, 258.5);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(45, 267, this.state.signDate);
+    doc.text(this.state.signDate, 45, 267);
 
     //page30
     doc.addPage();
-    doc.addImage(createImage(images[30]), 'JPEG', 0, 0, 210, 297);
-    doc.text(37, 50.5, this.state.emMainName);
-    doc.text(42, 57.5, this.state.emHomeAddr);
-    doc.text(26, 65.5, this.state.emMainCsz);
-    doc.text(142, 51, this.state.emMainHomeTel);
-    doc.text(142, 58.5, this.state.emMainCell);
+    doc.addImage(backgroundImages[30], 'JPEG', 0, 0, 210, 297);
+    doc.text(this.state.emMainName, 37, 50.5);
+    doc.text(this.state.emHomeAddr, 42, 57.5);
+    doc.text(this.state.emMainCsz, 26, 65.5);
+    doc.text(this.state.emMainHomeTel, 142, 51);
+    doc.text(this.state.emMainCell, 142, 58.5);
 
-    doc.text(37, 97.5, this.state.emerMainName1);
-    doc.text(42, 105.5, this.state.emMainAddr1);
-    doc.text(26, 112.5, this.state.emerMainCsz1);
-    doc.text(142, 97.5, this.state.emerHomeTel1);
-    doc.text(142, 105.5, this.state.emerCell1);
-    doc.text(145, 113.5, this.state.emerMainRel1);
+    doc.text(this.state.emerMainName1, 37, 97.5);
+    doc.text(this.state.emMainAddr1, 42, 105.5);
+    doc.text(this.state.emerMainCsz1, 26, 112.5);
+    doc.text(this.state.emerHomeTel1, 142, 97.5);
+    doc.text(this.state.emerCell1, 142, 105.5);
+    doc.text(this.state.emerMainRel1, 145, 113.5);
 
-    doc.text(37, 128, this.state.emerMainName2);
-    doc.text(42, 135, this.state.emMainAddr2);
-    doc.text(26, 142, this.state.emerMainCsz2);
-    doc.text(142, 128.3, this.state.emerHomeTel2);
-    doc.text(142, 135.5, this.state.emerCell2);
-    doc.text(145, 143.5, this.state.emerMainRel2);
+    doc.text(this.state.emerMainName2, 37, 128);
+    doc.text(this.state.emMainAddr2, 42, 135);
+    doc.text(this.state.emerMainCsz2, 26, 142);
+    doc.text(this.state.emerHomeTel2, 142, 128.3);
+    doc.text(this.state.emerCell2, 142, 135.5);
+    doc.text(this.state.emerMainRel2, 145, 143.5);
 
     //page 31
     doc.addPage();
-    doc.addImage(createImage(images[31]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[31], 'JPEG', 0, 0, 210, 297);
     //page 32
     doc.addPage();
-    doc.addImage(createImage(images[32]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[32], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(10);
-    doc.text(97, 49, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 97, 49);
     doc.setFontSize(9);
-    doc.text(28.5, 225.5, this.state.mainCompanyName);
+    doc.text(this.state.mainCompanyName, 28.5, 225.5);
     //page 33
     doc.addPage();
-    doc.addImage(createImage(images[33]), 'JPEG', 0, 0, 210, 297);
+    doc.addImage(backgroundImages[33], 'JPEG', 0, 0, 210, 297);
     doc.setFontSize(12);
-    doc.text(23, 35, this.state.dateOfApp);
+    doc.text(this.state.dateOfApp, 23, 35);
     doc.addFileToVFS('Meddon.ttf', SignatureFont);
     doc.addFont('Meddon.ttf', 'Meddon', 'cursive');
     doc.setFont('Meddon', 'cursive');
-    doc.text(85, 35, this.state.mainSignature);
+    doc.text(this.state.mainSignature, 85, 35);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
-    doc.text(85, 61, this.state.name);
+    doc.text(this.state.name, 85, 61);
 
-    doc.save('rampart-transportation.pdf');
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 4000);
+    return doc;
   };
 
   async setBackgroundImages() {
@@ -1020,7 +1020,12 @@ class DriverForm extends Component {
     }
 
     // download all images simultaneously
-    const imageUrls = getImageUrls();
+    const context = require.context('./images', false, /\.(png|jpe?g)$/);
+    const imageUrls = context.keys().map(context);
+    if (imageUrls.length === 0) {
+      return;
+    }
+
     const requests = imageUrls.map(async src => axios.get(src, {responseType: 'arraybuffer'}));
     const responses = await Promise.all(requests);
 
@@ -1035,7 +1040,20 @@ class DriverForm extends Component {
     const now = moment().format('YYYY-MM-DD HH:mm');
     await localforage.setItem('driver-form-images', {images, cachedAt: now});
 
-    this.setState({backgroundImages: cache.images});
+    this.setState({backgroundImages: images});
+  }
+
+  async sendDocumentByEmail(doc) {
+    const formData = new FormData();
+    formData.append('document', doc.output('blob'));
+    formData.append('applicationDate', this.state.dateOfApp);
+    formData.append('driverName', this.state.name);
+
+    await axios.post('/api/form_driver', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value});
@@ -4034,25 +4052,18 @@ class DriverForm extends Component {
           </div>
         </div>
         <div className='MainBtnDiv'>
-          <span
-            onClick={() => this.generatePdf()}
-            disabled={loading}
-            color='primary'
-            className='mainCircProg'
-          >
-            {loading && <CircularProgress />}
-            {loading && <span />}
-            {!loading && (
-              <Button
-                variant='contained'
-                color='primary'
-                size='large'
-                className='mainBtn'
-              >
-                Submit Document
-              </Button>
-            )}
-          </span>
+          {loading && <CircularProgress />}
+          {!loading && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => this.onSubmit()}
+              disabled={loading}
+            >
+              Submit Document
+            </Button>
+          )}
         </div>
       </div> //main div
     );
