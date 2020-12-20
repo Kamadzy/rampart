@@ -12,6 +12,10 @@ RUN pecl -q install xdebug && docker-php-ext-enable xdebug \
     && echo "xdebug.remote_port = 9000"       >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.max_nesting_level = 512"  >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini;
 
+# Use the default dev configuration
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN echo "upload_max_filesize = 32M" >> "$PHP_INI_DIR/php.ini"
+
 # Disable access logs
 RUN echo "access.log = /dev/null" >> /usr/local/etc/php-fpm.d/www.conf
 
@@ -36,10 +40,6 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_NO_INTERACTION=1 COMPOSER_MEMORY_LIMIT=-
 # add useful scripts
 COPY docker-helpers/ /usr/local/bin/
 RUN chmod -R +x /usr/local/bin/
-
-# Use the default production configuration
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-RUN echo "upload_max_filesize = 32M" >> "$PHP_INI_DIR/php.ini"
 
 # 1. Update uid of www-data user to avoid problems with file permissions on the host machine
 # 2. Create DIR for composer and set proper owner

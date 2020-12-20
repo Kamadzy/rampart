@@ -26,6 +26,6 @@ class FormDriver extends Mailable
     {
         return $this
             ->subject('New driver application!')
-            ->markdown('mail.fromDriver');
+            ->markdown('mail.formDriver');
     }
 }

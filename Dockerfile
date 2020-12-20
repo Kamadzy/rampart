@@ -18,6 +18,10 @@ FROM php:7.4.11-fpm
 
 LABEL maintainer="Anton Samofal"
 
+# Use prod configuration
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN echo "upload_max_filesize = 32M" >> "$PHP_INI_DIR/php.ini"
+
 # Disable access logs
 RUN echo "access.log = /dev/null" >> /usr/local/etc/php-fpm.d/www.conf
 

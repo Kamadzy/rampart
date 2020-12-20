@@ -68,8 +68,8 @@ class ApiController extends Controller
     {
         $validatedData = $request->validate([
             'document'        => 'required|file',
-            'driverName'      => 'required|string',
-            'applicationDate' => 'required|string',
+            'driverName'      => 'string',
+            'applicationDate' => 'string',
         ]);
 
         $form_document = $validatedData['document'];
