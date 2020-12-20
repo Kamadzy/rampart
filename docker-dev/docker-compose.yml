@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: rampart-nginx
+    image: nginx:1.19.3-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ../backend:/var/www/rampart
+    depends_on:
+      - php-fpm
+    restart: unless-stopped
+
+  php-fpm:
+    container_name: rampart-dev
+    image: rampart/app-dev
+    volumes:
+      - ../backend:/var/www/rampart
+    restart: unless-stopped

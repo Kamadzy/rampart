@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+# design
+txtbld=$(tput bold)
+red=${txtbld}$(tput setaf 1)
+green=${txtbld}$(tput setaf 2)
+blue=${txtbld}$(tput setaf 4)
+reset=$(tput sgr0)
+toend=$(tput hpa $(tput cols))$(tput cub 6)
+
+# phpDoc generation for Laravel Facades
+php artisan ide-helper:generate
+
+# phpDocs for models
+# ISSUE: Exception: Unknown database type bit requested, Doctrine\DBAL\Platforms\MySQL80Platform may not support it.
+#php artisan ide-helper:models
+
+# PhpStorm Meta file
+php artisan ide-helper:meta
+
+echo "${blue}IDE helpers have been generated!${reset}"

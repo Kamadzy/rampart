@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+# design
+txtbld=$(tput bold)
+red=${txtbld}$(tput setaf 1)
+green=${txtbld}$(tput setaf 2)
+blue=${txtbld}$(tput setaf 4)
+reset=$(tput sgr0)
+toend=$(tput hpa $(tput cols))$(tput cub 6)
+
+if [[ ! -f "$PROJECT_PATH/.env" && -f "$PROJECT_PATH/.env.example" ]]; then
+    cp "$PROJECT_PATH/.env.example" "$PROJECT_PATH/.env"
+    echo "${blue}.env was created!${reset}"
+fi

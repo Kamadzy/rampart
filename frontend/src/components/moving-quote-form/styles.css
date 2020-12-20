@@ -1,0 +1,33 @@
+.moving-form {
+    background-color: #f7f8f8;
+    width: 100%;
+    margin-top: 20%;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.form-header {
+    text-align: center;
+}
+
+.form-input {
+    padding-bottom: 10px;
+    padding-left: 20px;
+}
+
+.formBtn:hover {
+    background-color: #f7d849 !important;
+    color: #11161e;
+}
+
+.moving-form-input {
+    width: 95%;
+}
+
+.form-btn {
+    padding-left: 20px;
+}
+
+.formBtn {
+    width: 95% !important;
+}
