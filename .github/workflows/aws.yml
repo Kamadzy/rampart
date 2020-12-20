@@ -75,6 +75,7 @@ jobs:
           --build-arg MAILGUN_DOMAIN=$MAILGUN_DOMAIN \
           --build-arg MAILGUN_SECRET=$MAILGUN_SECRET \
           --build-arg MAIL_ENDPOINT=$MAIL_ENDPOINT \
+          --build-arg MAIL_ENDPOINT=$MAIL_TO \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
