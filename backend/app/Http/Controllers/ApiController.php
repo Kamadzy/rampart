@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use App\Mail\{MovingQuote, FormDriver};
+use App\Mail\{FormOwnerOp, MovingQuote, FormDriver};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -51,7 +51,7 @@ class ApiController extends Controller
 
         $form_document = $validatedData['document'];
 
-        $email = new FormDriver($validatedData);
+        $email = new FormOwnerOp($validatedData);
         $email->attach($form_document->getRealPath(), ['as' => 'ownerop.pdf', 'mime' => 'application/pdf']);
 
         Mail::to(env('MAIL_TO'))->send($email);
