@@ -36,7 +36,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: laravel
+        ref: master
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
