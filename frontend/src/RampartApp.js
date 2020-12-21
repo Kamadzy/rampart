@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import localforage from 'localforage';
 
-
 import HomePage from './pages/home/home-page';
 import OwnerOperatorPage from './pages/owner-operator/owner-operator-page';
 import DriverPage from './pages/driver/driver-page';

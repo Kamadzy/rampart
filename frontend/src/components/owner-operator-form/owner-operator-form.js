@@ -59,9 +59,6 @@ class OwnerOperatorForm extends Component {
         title: 'Registered!',
         text: 'Thank you!'
       });
-
-      // let user to download a document
-      doc.save('rampart-ownerop.pdf');
     } catch (e) {
       let msg = {
         title: 'Oops... error!',
@@ -102,7 +99,7 @@ class OwnerOperatorForm extends Component {
       mainCompanyAddress,
       mainCompanyUsdot,
       mainCompanyEin,
-      mainCompanyMc,
+      mainCompanyMc
     } = this.state;
 
     if (backgroundImages.length === 0) {

@@ -294,9 +294,6 @@ class DriverForm extends Component {
         title: 'Registered!',
         text: 'Thank you!'
       });
-
-      // let user to download a document
-      doc.save('rampart-driver-application.pdf');
     } catch (e) {
       let msg = {
         title: 'Oops... error!',
