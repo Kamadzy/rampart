@@ -87,7 +87,7 @@ class HomePage extends Component {
                   component={Link}
                   to={'/driver-application'}
                 >
-                  Fill Driver Application
+                  Fill Out Driver Application
                 </Button>
               </div>
             </div>
@@ -113,7 +113,7 @@ class HomePage extends Component {
                   component={Link}
                   to={'/owner-operator-form'}
                 >
-                  Fill Owner Operator Application
+                  Fill Out Owner Application
                 </Button>
               </div>
               <div className='ownerOp-app-img d-none d-sm-block col-xl-6'>

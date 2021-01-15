@@ -32,13 +32,13 @@ class Header extends Component {
                   <a href='#about-section' className='nav-link'>About Us</a>
                 </li>
                 <li className='nav-item'>
-                  <a href='#main-section' className='nav-link'>Driver App</a>
+                  <a href='#main-section' className='nav-link'>Driver</a>
                 </li>
                 <li className='nav-item'>
-                  <a href='#main-section' className='nav-link'>Owner Operator</a>
+                  <a href='#main-section' className='nav-link'>Owner Operators</a>
                 </li>
                 <li className='nav-item'>
-                  <a href='#contact-section' className='nav-link'>Contact</a>
+                  <a href='#contact-section' className='nav-link'>Contact Us</a>
                 </li>
               </ul>
             </div>
