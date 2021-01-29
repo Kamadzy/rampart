@@ -32,7 +32,7 @@ class OwnerOperatorForm extends Component {
       lessorGross: '90%',
       lessorMainSignature: '',
       mainCompanyName: 'Rampart Transportation INC',
-      mainCompanyAddress: '3029 Wolfe Ct Antelope CA 95843',
+      mainCompanyAddress: '6110 N Hood Ave Meridian ID 83646',
       mainCompanyUsdot: '3411477',
       mainCompanyEin: '83-3141615',
       mainCompanyMc: '1100091',
