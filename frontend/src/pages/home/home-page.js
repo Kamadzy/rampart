@@ -133,8 +133,8 @@ class HomePage extends Component {
                       <FontAwesomeIcon icon={faMapMarkerAlt} /> Headquarters Office
                     </p>
                     <p>
-                      6110 N Hood Ave <br />
-                      Meridian, ID 83646
+                      3016 Caldwell BLVD Suite 101 <br />
+                      Nampa, ID 83651
                     </p>
                   </div>
                   <div className="col-md-4">
